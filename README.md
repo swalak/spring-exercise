@@ -1,5 +1,5 @@
 ## Goal
-Create a company search application using Spring Boot 2.5.12.
+Create a company search application using Spring Boot 3.1.3 or higher.
 
 Expose an endpoint that uses the `TruProxyAPI` to do a company and officer lookup 
 via name or registration number.
