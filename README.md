@@ -170,6 +170,8 @@ Example: curl -s -H 'x-api-key: xxxxxxxxxxxxx' "https://exercise.trunarrative.cl
 
 *API credentials will be provided seperately*
 
+## Do not check the API Key into the repository!
+
 ## Flow
 
 ![Wireframe](https://raw.githubusercontent.com/TruNarrative/spring-exercise/main/spring_exercise.png)
