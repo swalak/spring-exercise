@@ -9,9 +9,13 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(MissingApiKeyHeaderException.class)
-//    @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<String> handleResourceNotFoundException(MissingApiKeyHeaderException ex) {
-        // You can customize this response as needed
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(ValidationException.class)
+    public ResponseEntity<String> handleResourceNotFoundException(ValidationException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
 }

@@ -15,6 +15,22 @@ public interface RequestExamples {
     String validRequestJson = fromReadMeAsJson;
     String validRequestAsCamelCaseJson = validRequestJson;
 
+    //language=JSON
+    String validRequestOnlyCompanyName = """
+            {
+                "companyName" : "BBC LIMITED"
+            }
+            """;
+
+    //language=JSON
+    String validRequestOnlyCompanyNumber = """
+            {
+                "companyNumber" : "06500244"
+            }
+            """;
+
+    String invalidRequestNoSearchValues = "{}";
+
     SearchRequest fromReadMeAsObject = new SearchRequest(
             "BBC LIMITED",
             "06500244"

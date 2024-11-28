@@ -136,4 +136,54 @@ class ControllerTests {
                 actualResolvedException.getMessage()
         );
     }
+
+    @Test
+    void shouldFailIfCompanyNameAndCompanyNumberAreMissing() throws Exception {
+        final Exception actualResolvedException = mockMvc.perform(post(controllerEndpointUri)
+                        .contentType(APPLICATION_JSON)
+                        .header("x-api-key", expectedApiKey)
+                        .content(RequestExamples.invalidRequestNoSearchValues))
+                .andExpect(status().isBadRequest())
+                .andReturn().getResolvedException();
+
+        assert actualResolvedException != null;
+
+        assertEquals("Exception message",
+                "Missing Company Name and Company Number",
+                actualResolvedException.getMessage()
+        );
+    }
+
+    @Test
+    void shouldPassIfOnlyCompanyNameIsProvided() throws Exception {
+        mockMvc.perform(post(controllerEndpointUri)
+                        .contentType(APPLICATION_JSON)
+                        .header("x-api-key", expectedApiKey)
+                        .content(RequestExamples.validRequestOnlyCompanyName))
+                .andExpect(status().isOk());
+
+        verify(mockedSearchService).search(
+                eq(RequestExamples.fromReadMeAsObject.companyName()),
+                isNull(),
+                anyBoolean(),
+                anyString());
+
+    }
+
+    @Test
+    void shouldPassIfOnlyCompanyNumberIsProvided() throws Exception {
+        mockMvc.perform(post(controllerEndpointUri)
+                        .contentType(APPLICATION_JSON)
+                        .header("x-api-key", expectedApiKey)
+                        .content(RequestExamples.validRequestOnlyCompanyNumber))
+                .andExpect(status().isOk());
+
+        verify(mockedSearchService).search(
+                isNull(),
+                eq(RequestExamples.fromReadMeAsObject.companyNumber()),
+                anyBoolean(),
+                anyString());
+
+    }
+
 }
