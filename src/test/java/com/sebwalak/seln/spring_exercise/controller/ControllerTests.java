@@ -1,13 +1,15 @@
-package com.sebwalak.seln.spring_exercise;
+package com.sebwalak.seln.spring_exercise.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sebwalak.seln.spring_exercise.controller.SearchController;
+import com.sebwalak.seln.spring_exercise.RequestExamples;
+import com.sebwalak.seln.spring_exercise.ResponseExamples;
 import com.sebwalak.seln.spring_exercise.exception.MissingApiKeyHeaderException;
 import com.sebwalak.seln.spring_exercise.model.request.SearchRequest;
 import com.sebwalak.seln.spring_exercise.model.response.SearchResponse;
 import com.sebwalak.seln.spring_exercise.service.SearchService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentMatchers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -87,7 +89,7 @@ class ControllerTests {
     void shouldSerializeAndDeserializeExamplesIncludingCamelAndSnakeCase() throws Exception {
 
         when(mockedSearchService.search(
-                eq(RequestExamples.fromReadMeAsObject.companyName()),
+                ArgumentMatchers.eq(RequestExamples.fromReadMeAsObject.companyName()),
                 eq(RequestExamples.fromReadMeAsObject.companyNumber()),
                 anyBoolean(),
                 anyString()

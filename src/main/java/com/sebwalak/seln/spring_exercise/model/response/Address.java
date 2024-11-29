@@ -9,4 +9,14 @@ public record Address(
         String locality,
         String country
 ) {
+
+    public static Address from(Address o) {
+        return new Address(
+                o.premises,
+                o.addressLine1,
+                o.postalCode,
+                o.locality,
+                o.country
+        );
+    }
 }
