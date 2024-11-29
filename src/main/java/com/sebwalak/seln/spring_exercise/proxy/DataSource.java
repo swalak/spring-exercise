@@ -40,10 +40,7 @@ public class DataSource {
     public static FetchCompaniesFromProxy createFetchCompaniesFromProxy(RestTemplate restTemplate, String proxyBaseUrl) {
         return (query, apiKey) -> {
             String url = format("%s/Search?Query=%s", proxyBaseUrl, encode(query, UTF_8));
-
-            return restTemplate
-                    .exchange(url, GET, getStringHttpEntity(apiKey), CompaniesFromProxy.class)
-                    .getBody();
+            return send(url, restTemplate, apiKey, CompaniesFromProxy.class);
         };
     }
 
@@ -55,17 +52,18 @@ public class DataSource {
     public static FetchOfficersFromProxy createFetchOfficersFromProxy(RestTemplate restTemplate, String proxyBaseUrl) {
         return (companyNumber, apiKey) -> {
             String url = format("%s/Officers?CompanyNumber=%s", proxyBaseUrl, encode(companyNumber, UTF_8));
-
-            return restTemplate
-                    .exchange(url, GET, getStringHttpEntity(apiKey), OfficersFromProxy.class)
-                    .getBody();
+            return send(url, restTemplate, apiKey, OfficersFromProxy.class);
         };
     }
 
-    public static HttpEntity<String> getStringHttpEntity(String apiKey) {
-        return new HttpEntity<>(new HttpHeaders(new MultiValueMapAdapter<>(Map.of(
+    private static <T> T send(String url, RestTemplate restTemplate, String apiKey, Class<T> responseType) {
+        HttpEntity<String> httpEntity = new HttpEntity<>(new HttpHeaders(new MultiValueMapAdapter<>(Map.of(
                 "x-api-key", of(apiKey),
                 "Accept", of(APPLICATION_JSON_VALUE)
         ))));
+
+        return restTemplate
+                .exchange(url, GET, httpEntity, responseType)
+                .getBody();
     }
 }

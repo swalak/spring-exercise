@@ -24,11 +24,10 @@ curl -s -X POST -d '{"companyName":"BBC LIMITED"}' -H "Content-Type: application
 curl -s -X POST -d '{"companyName":"BBC LIMITED"}' -H "Content-Type: application/json" -H 'x-api-key: xxxx' "http://localhost:8080/api/v1/search"
 ```
 1. ideally I would use test data that are anonymised 
-(this set is publicly visible on companies house but I am still unsure about legal implications, right to reuse)
-1. missing integration testing using controller and mocked proxy (there controller tests and there is service with mocked proxy)
+   (this set is publicly visible on companies house but I am still unsure about legal implications, right to reuse)
+1. improve integration testing using controller and mocked proxy (there controller tests and there is service with mocked proxy)
 1. some assertions are a bit too weak (e.g. checking number of officers instead of name) 
 1. needs better error handling (users shouldn't need to know about proxy going through crisis) 
-1. logging (I would review it and consider the seams when I/O takes places)
 1. request retry strategies
 1. I would add swagger to the new endpoint 
 1. no observability metrics implemented

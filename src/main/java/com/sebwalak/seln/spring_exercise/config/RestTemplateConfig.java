@@ -3,6 +3,7 @@ package com.sebwalak.seln.spring_exercise.config;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.sebwalak.seln.spring_exercise.logging.LoggingInterceptor;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,6 +22,14 @@ public class RestTemplateConfig {
         MappingJackson2HttpMessageConverter messageConverter = new MappingJackson2HttpMessageConverter();
         messageConverter.setObjectMapper(objectMapper);
 
-        return builder.messageConverters(messageConverter).build();
+        RestTemplateBuilder restTemplateBuilder = builder
+                .messageConverters(messageConverter);
+
+        // avoid chaining an extra and very slow logging component if the logging is not requested
+        if (LoggingInterceptor.shouldBeEnabled()) {
+            restTemplateBuilder = restTemplateBuilder.additionalInterceptors(new LoggingInterceptor());
+        }
+
+        return restTemplateBuilder.build();
     }
 }

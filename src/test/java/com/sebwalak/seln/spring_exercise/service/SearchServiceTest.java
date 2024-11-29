@@ -32,6 +32,7 @@ import static com.sebwalak.seln.spring_exercise.proxy.DataSource.createFetchComp
 import static com.sebwalak.seln.spring_exercise.proxy.DataSource.createFetchOfficersFromProxy;
 import static java.lang.String.format;
 import static java.util.Collections.emptyList;
+import static org.assertj.core.api.Assertions.fail;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
@@ -77,7 +78,7 @@ class SearchServiceTest {
         when(mockedFetchOfficersFromProxy.by(anyString(), anyString()))
                 .thenReturn(new OfficersFromProxy(emptyList()));
 
-        wireMockServer = WireMockTestUtil.setUp(proxyContextPath, true);
+        wireMockServer = WireMockTestUtil.setUp(proxyContextPath, false);
 
         String testProxyBaseUrl = format("%s:%d%s/v1", proxyBaseUrl, wireMockServer.port(), proxyContextPath);
         searchService = new SearchService(
@@ -214,5 +215,27 @@ class SearchServiceTest {
 
         assertThat(actualSearchResponse.totalResults(), is(1));
         assertThat(actualSearchResponse.items().getFirst().officers(), hasSize(2));
+    }
+
+    /// A problem occurred when I run
+    /// ```shell
+    /// curl \
+    ///     -s \
+    ///     -X POST \
+    ///     -d '{"companyName":"BBC LIMITED"}' \
+    ///     -H "Content-Type: application/json" \
+    ///     -H 'x-api-key: xxxx' \
+    ///     "http://localhost:8080/api/v1/search"
+    /// ```
+    /// One of the companies matching the query criteria is:
+    /// - named "B.B.C. BATHROOMS LIMITED"
+    /// - number 01481686
+    /// - status liquidation
+    ///
+    /// This company has no officers and that causes the service to failover.
+    @Test
+    void shouldCopeWithOfficersResponseWithNoOfficers() {
+        //FIXME
+        fail("to be implemented");
     }
 }
