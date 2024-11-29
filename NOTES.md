@@ -12,13 +12,19 @@ It allows for flexibility as can be passed on the command-line without changing 
 1. only-active parameter is defaulted to false but this behaviour would normally be verified with the product owner
 1. address/region is to be omitted
 
-run out of time (I would not release the code yet)
+
+# Tasks to consider and potentially do
 1. ideally I would use test data that are anonymised 
 (this set is publicly visible on companies house but I am still unsure about legal implications, right to reuse)
 1. missing integration testing using controller and mocked proxy (there controller tests and there is service with mocked proxy)
-1. needs better error handling 
-1. logging
+1. some assertions are a bit too weak (e.g. checking number of officers instead of name) 
+1. needs better error handling (users shouldn't need to know about proxy going through crisis) 
+1. logging (I would review it and consider the seams when I/O takes places)
 1. request retry strategies
-1. normally I would add swagger 
-1. healthcheck endpoint not enabled 
+1. I would add swagger to the new endpoint 
+1. no observability metrics implemented
+1. healthcheck endpoint not checked/enabled 
 1. bonus
+
+---
+The bottom line is that I run out of time and I would not release the code in this shape yet. 
