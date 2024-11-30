@@ -7,6 +7,7 @@ import io.restassured.RestAssured;
 import io.restassured.parsing.Parser;
 import io.restassured.path.json.JsonPath;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -31,6 +32,9 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 @ActiveProfiles("test")
+@Tag("controller")
+@Tag("service")
+@Tag("integration")
 public class IntegrationTest {
 
     @LocalServerPort

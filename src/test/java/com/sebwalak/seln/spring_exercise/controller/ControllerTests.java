@@ -8,6 +8,7 @@ import com.sebwalak.seln.spring_exercise.model.request.SearchRequest;
 import com.sebwalak.seln.spring_exercise.model.response.SearchResponse;
 import com.sebwalak.seln.spring_exercise.service.SearchService;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WebMvcTest(SearchController.class)
 @AutoConfigureMockMvc
+@Tag("controller")
+@Tag("unit")
 class ControllerTests {
 
     @Autowired
