@@ -16,6 +16,7 @@ import static org.springframework.web.util.UriUtils.encode;
 public class WireMockTestUtil {
 
     public static final String VALID_API_KEY = "validApiKey";
+    public final static String MOCKED_LIFELIKE_COMPANY_NUMBER = "06500244";
     public final static String MOCKED_COMPANY_NUMBER = "06500244";
     public final static String MOCKED_COMPANY_NUMBER_2 = "065002440";
     public final static String MOCKED_COMPANY_NUMBER_NO_OFFICERS = "01481686";
@@ -63,6 +64,11 @@ public class WireMockTestUtil {
         }
         WireMockServer wireMockServer = new WireMockServer(wireMockConfiguration);
 
+        // stubs using data very close to production
+        stubCompanySearch(equalTo(MOCKED_LIFELIKE_COMPANY_NUMBER), "life-like/proxy_company_search_result_for_06500244.json", wireMockContextPath, wireMockServer);
+        stubOfficerSearch(equalTo(MOCKED_LIFELIKE_COMPANY_NUMBER), "life-like/proxy_officers_search_result_for_06500244.json", wireMockContextPath, wireMockServer);
+
+        // stubs using simplified data
         stubCompanySearch(equalTo(MOCKED_COMPANY_NUMBER), "company_search_result_for_06500244.json", wireMockContextPath, wireMockServer);
         stubCompanySearch(equalTo(MOCKED_COMPANY_NUMBER_2), "company_search_result_for_065002440.json", wireMockContextPath, wireMockServer);
         stubCompanySearch(matching(URL_ENCODED_MOCKED_COMPANY_NAME), "company_search_result_for_BBC_LIMITED.json", wireMockContextPath, wireMockServer);

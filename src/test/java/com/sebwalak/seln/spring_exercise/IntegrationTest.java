@@ -74,9 +74,9 @@ public class IntegrationTest {
     }
 
     @Test
-    void shouldHandleABasicRequestFromControllerToMockedProxy() throws Exception {
+    void shouldHandleABasicRequestFromControllerToMockedProxy() {
 
-        JsonPath expectedJson = new JsonPath(new File("src/test/resources/__files/company_with_officers_result.json"));
+        JsonPath expectedJson = new JsonPath(new File("src/test/resources/__files/life-like/expected_api_search_result_for_06500244.json"));
 
         //@formatter:off
         given()
