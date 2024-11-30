@@ -14,6 +14,8 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.util.Collections.emptyList;
+
 @Service
 public class SearchService {
 
@@ -27,7 +29,11 @@ public class SearchService {
         this.fetchOfficersFromProxy = fetchOfficersFromProxy;
     }
 
-    public SearchResponse search(String companyName, String companyNumber, boolean onlyActive, String apiKey) {
+    public SearchResponse search(
+            String companyName,
+            String companyNumber,
+            boolean onlyActiveCompanies,
+            String apiKey) {
 
         String searchQuery;
         if (isMissing(companyNumber)) {
@@ -41,15 +47,17 @@ public class SearchService {
         int totalResults = 0;
         List<Company> companies = new ArrayList<>();
         for (CompanyFromProxy companyFromProxy : companiesFromProxy.items()) {
-            if (isCompanyActiveOrUserWantsAll(onlyActive, companyFromProxy)) {
+            if (isCompanyActiveOrUserWantsAll(onlyActiveCompanies, companyFromProxy)) {
 
                 String officersCompanyNumber = companyFromProxy.companyNumber();
 
                 OfficersFromProxy officersFromProxy = fetchOfficersFromProxy.by(officersCompanyNumber, apiKey);
-                List<Officer> officers = officersFromProxy.items().stream()
+                List<Officer> officers = officersFromProxy.items() != null ? officersFromProxy.items().stream()
                         .filter(SearchService::officerNotResigned)
                         .map(Officer::from)
-                        .toList();
+                        .toList() :
+                        emptyList();
+                
 
                 Company company = Company.from(companyFromProxy, officers);
                 companies.add(company);

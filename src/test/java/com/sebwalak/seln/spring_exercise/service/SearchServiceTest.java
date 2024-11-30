@@ -7,11 +7,13 @@ import com.sebwalak.seln.spring_exercise.model.proxy.CompaniesFromProxy;
 import com.sebwalak.seln.spring_exercise.model.proxy.CompanyFromProxy;
 import com.sebwalak.seln.spring_exercise.model.proxy.OfficersFromProxy;
 import com.sebwalak.seln.spring_exercise.model.response.Address;
+import com.sebwalak.seln.spring_exercise.model.response.Company;
 import com.sebwalak.seln.spring_exercise.model.response.SearchResponse;
 import com.sebwalak.seln.spring_exercise.proxy.FetchCompaniesFromProxy;
 import com.sebwalak.seln.spring_exercise.proxy.FetchOfficersFromProxy;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -32,10 +34,8 @@ import static com.sebwalak.seln.spring_exercise.proxy.DataSource.createFetchComp
 import static com.sebwalak.seln.spring_exercise.proxy.DataSource.createFetchOfficersFromProxy;
 import static java.lang.String.format;
 import static java.util.Collections.emptyList;
-import static org.assertj.core.api.Assertions.fail;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.*;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
@@ -43,6 +43,8 @@ import static org.mockito.Mockito.when;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 @ActiveProfiles("test")
+@Tag("service")
+@Tag("unit")
 class SearchServiceTest {
 
     private SearchService searchService;
@@ -191,7 +193,19 @@ class SearchServiceTest {
                 true,
                 VALID_API_KEY);
 
-        assertThat(actualSearchResponse.totalResults(), is(1));
+        int noOfReturnedCompanies = actualSearchResponse.items().size();
+
+        int noOfReturnedCompaniesWithActiveStatus = (int) actualSearchResponse.items().stream()
+                .filter(Company::isActive)
+                .count();
+
+
+        int noOfReturnedCompaniesWithoutActiveStatus = (int) actualSearchResponse.items().stream()
+                .filter(Company::isInactive)
+                .count();
+
+        assertThat(noOfReturnedCompaniesWithoutActiveStatus, is(0));
+        assertThat(noOfReturnedCompaniesWithActiveStatus, is(noOfReturnedCompanies));
     }
 
     @Test
@@ -202,7 +216,19 @@ class SearchServiceTest {
                 false,
                 VALID_API_KEY);
 
-        assertThat(actualSearchResponse.totalResults(), is(2));
+        int noOfReturnedCompanies = actualSearchResponse.items().size();
+
+        int noOfReturnedCompaniesWithActiveStatus = (int) actualSearchResponse.items().stream()
+                .filter(Company::isActive)
+                .count();
+        
+
+        int noOfReturnedCompaniesWithoutActiveStatus = (int) actualSearchResponse.items().stream()
+                .filter(Company::isInactive)
+                .count();
+
+        assertThat(noOfReturnedCompaniesWithoutActiveStatus, greaterThan(0));
+        assertThat(noOfReturnedCompaniesWithoutActiveStatus, is(noOfReturnedCompanies - noOfReturnedCompaniesWithActiveStatus));
     }
 
     @Test
@@ -235,7 +261,17 @@ class SearchServiceTest {
     /// This company has no officers and that causes the service to failover.
     @Test
     void shouldCopeWithOfficersResponseWithNoOfficers() {
-        //FIXME
-        fail("to be implemented");
+        SearchResponse actualSearchResponse = searchService.search(
+                null,
+                MOCKED_COMPANY_NAME,
+                false,
+                VALID_API_KEY);
+
+        Company companyWithNoOfficers = actualSearchResponse.items().stream()
+                .filter(company -> company.companyNumber().equals(MOCKED_COMPANY_NUMBER_NO_OFFICERS))
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("The company of interest is missing"));
+
+        assertThat(companyWithNoOfficers.officers(), is(emptyList()));
     }
 }

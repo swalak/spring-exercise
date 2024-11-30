@@ -60,6 +60,12 @@
       "description_identifier": [
         "incorporated-on"
       ]
+    },
+    {
+      "company_status": "liquidation",
+      "description": "01481686 - officer-less company",
+      "company_number": "01481686",
+      "title": "B.B.C. BATHROOMS LIMITED"
     }
   ]
 }

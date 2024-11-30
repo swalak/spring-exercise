@@ -19,10 +19,6 @@ curl -s -X POST -d '{"companyName":"BBC LIMITED"}' -H "Content-Type: application
 ```
 
 # Tasks to consider and potentially do
-1. Investigate failure when running
-```shell
-curl -s -X POST -d '{"companyName":"BBC LIMITED"}' -H "Content-Type: application/json" -H 'x-api-key: xxxx' "http://localhost:8080/api/v1/search"
-```
 1. ideally I would use test data that are anonymised 
    (this set is publicly visible on companies house but I am still unsure about legal implications, right to reuse)
 1. improve integration testing using controller and mocked proxy (there controller tests and there is service with mocked proxy)
