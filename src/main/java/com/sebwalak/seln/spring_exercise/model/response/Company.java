@@ -1,5 +1,6 @@
 package com.sebwalak.seln.spring_exercise.model.response;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sebwalak.seln.spring_exercise.model.proxy.CompanyFromProxy;
 
 import java.util.List;
@@ -23,5 +24,15 @@ public record Company(
                 Address.from(o.address()),
                 withOfficers
         );
+    }
+
+    @JsonIgnore
+    public boolean isActive() {
+        return companyStatus.equalsIgnoreCase("active");
+    }
+
+    @JsonIgnore
+    public boolean isInactive() {
+        return !isActive();
     }
 }
