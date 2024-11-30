@@ -11,6 +11,10 @@ public record Address(
 ) {
 
     public static Address from(Address o) {
+        if (o == null) {
+            return null;
+        }
+
         return new Address(
                 o.premises,
                 o.addressLine1,
