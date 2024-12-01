@@ -21,6 +21,7 @@ import org.springframework.web.client.RestTemplate;
 import java.io.File;
 
 import static com.sebwalak.seln.spring_exercise.WireMockTestUtil.*;
+import static com.sebwalak.seln.spring_exercise.controller.SearchController.HEADER_API_KEY;
 import static com.sebwalak.seln.spring_exercise.proxy.DataSource.createFetchCompaniesFromProxy;
 import static com.sebwalak.seln.spring_exercise.proxy.DataSource.createFetchOfficersFromProxy;
 import static io.restassured.RestAssured.given;
@@ -87,7 +88,7 @@ public class IntegrationTest {
             .contentType(JSON)
             .body(new SearchRequest(null, MOCKED_LIFELIKE_COMPANY_NUMBER))
             .accept(JSON)
-            .header("x-api-key", VALID_API_KEY)
+            .header(HEADER_API_KEY, VALID_API_KEY)
         .when()
             .post(endpointName)
         .then()
@@ -111,7 +112,7 @@ public class IntegrationTest {
             .contentType(JSON)
             .body(new SearchRequest(MOCKED_LIFELIKE_COMPANY_NAME, null))
             .accept(JSON)
-            .header("x-api-key", VALID_API_KEY)
+            .header(HEADER_API_KEY, VALID_API_KEY)
         .when()
             .post(endpointName)
         .then()

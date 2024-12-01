@@ -21,7 +21,8 @@ It allows for flexibility as can be passed on the command-line without changing 
    (this set is publicly visible on companies house but I am still unsure about legal implications, right to reuse)
    under src/test/resources/__files/life-like is a dump of vanilla proxy responses (proxy treated as a test system)  
    under src/test/resources/__files/minimal are minimal, anonymous and manually crafted proxy responses that focus on illustrating specific concerns
-
+10. in production the message logging and dumping is turned off for no-error scenarios for efficiency. 
+11. 
 # How to use
 ```shell
 curl -s -X POST -d '{"companyNumber":"06500244"}' -H "Content-Type: application/json" -H 'x-api-key: xxxx' "http://localhost:8080/api/v1/search"

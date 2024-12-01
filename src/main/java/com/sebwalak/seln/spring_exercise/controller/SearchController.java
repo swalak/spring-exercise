@@ -17,6 +17,9 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 )
 public class SearchController {
 
+    public static final String HEADER_ONLY_ACTIVE = "only-active";
+    public static final String HEADER_API_KEY = "x-api-key";
+
     private final SearchService searchService;
 
     @Autowired
@@ -27,8 +30,8 @@ public class SearchController {
     @PostMapping(path = "${spring.application.controller.endpoint-name}")
     public @ResponseBody SearchResponse search(
             @RequestBody SearchRequest searchRequest,
-            @RequestParam(value = "only-active", defaultValue = "false") boolean onlyActive,
-            @RequestHeader(value = "x-api-key", required = false) String apiKey) {
+            @RequestParam(value = HEADER_ONLY_ACTIVE, defaultValue = "false") boolean onlyActive,
+            @RequestHeader(value = HEADER_API_KEY, required = false) String apiKey) {
 
         if (apiKey == null || apiKey.isBlank()) {
             throw new MissingApiKeyHeaderException();

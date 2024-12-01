@@ -20,6 +20,8 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.net.URI;
 
+import static com.sebwalak.seln.spring_exercise.controller.SearchController.HEADER_API_KEY;
+import static com.sebwalak.seln.spring_exercise.controller.SearchController.HEADER_ONLY_ACTIVE;
 import static java.lang.String.format;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.verify;
@@ -76,7 +78,7 @@ class ControllerTests {
         // when
         mockMvc.perform(post(controllerEndpointUri)
                                 .contentType(APPLICATION_JSON)
-                                .header("x-api-key", expectedApiKey)
+                                .header(HEADER_API_KEY, expectedApiKey)
                                 .content(objectMapper.writeValueAsString(validSearchRequest)))
 
         // then
@@ -100,7 +102,7 @@ class ControllerTests {
 
         mockMvc.perform(post(controllerEndpointUri)
                         .contentType(APPLICATION_JSON)
-                        .header("x-api-key", expectedApiKey)
+                        .header(HEADER_API_KEY, expectedApiKey)
                         .content(RequestExamples.validRequestAsCamelCaseJson))
                 .andExpect(content().json(ResponseExamples.validResponseAsSnakeCaseJson));
     }
@@ -109,7 +111,7 @@ class ControllerTests {
     void shouldDefaultOnlyActiveToFalse() throws Exception {
         mockMvc.perform(post(controllerEndpointUri)
                 .contentType(APPLICATION_JSON)
-                .header("x-api-key", expectedApiKey)
+                .header(HEADER_API_KEY, expectedApiKey)
                 .content(RequestExamples.validRequestJson));
 
         verify(mockedSearchService).search(anyString(), anyString(), eq(false), anyString());
@@ -119,8 +121,8 @@ class ControllerTests {
     void shouldAllowToSetOnlyActiveToTrue() throws Exception {
         mockMvc.perform(post(controllerEndpointUri)
                 .contentType(APPLICATION_JSON)
-                .header("x-api-key", expectedApiKey)
-                .queryParam("only-active", "true")
+                .header(HEADER_API_KEY, expectedApiKey)
+                .queryParam(HEADER_ONLY_ACTIVE, "true")
                 .content(RequestExamples.validRequestJson));
 
         verify(mockedSearchService).search(anyString(), anyString(), eq(true), anyString());
@@ -146,7 +148,7 @@ class ControllerTests {
     void shouldFailIfCompanyNameAndCompanyNumberAreMissing() throws Exception {
         final Exception actualResolvedException = mockMvc.perform(post(controllerEndpointUri)
                         .contentType(APPLICATION_JSON)
-                        .header("x-api-key", expectedApiKey)
+                        .header(HEADER_API_KEY, expectedApiKey)
                         .content(RequestExamples.invalidRequestNoSearchValues))
                 .andExpect(status().isBadRequest())
                 .andReturn().getResolvedException();
@@ -163,7 +165,7 @@ class ControllerTests {
     void shouldPassIfOnlyCompanyNameIsProvided() throws Exception {
         mockMvc.perform(post(controllerEndpointUri)
                         .contentType(APPLICATION_JSON)
-                        .header("x-api-key", expectedApiKey)
+                        .header(HEADER_API_KEY, expectedApiKey)
                         .content(RequestExamples.validRequestOnlyCompanyName))
                 .andExpect(status().isOk());
 
@@ -179,7 +181,7 @@ class ControllerTests {
     void shouldPassIfOnlyCompanyNumberIsProvided() throws Exception {
         mockMvc.perform(post(controllerEndpointUri)
                         .contentType(APPLICATION_JSON)
-                        .header("x-api-key", expectedApiKey)
+                        .header(HEADER_API_KEY, expectedApiKey)
                         .content(RequestExamples.validRequestOnlyCompanyNumber))
                 .andExpect(status().isOk());
 

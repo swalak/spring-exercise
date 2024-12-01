@@ -5,7 +5,6 @@ import com.github.tomakehurst.wiremock.client.WireMock;
 import com.github.tomakehurst.wiremock.common.ConsoleNotifier;
 import com.github.tomakehurst.wiremock.core.WireMockConfiguration;
 import com.github.tomakehurst.wiremock.matching.StringValuePattern;
-import org.springframework.web.util.UriUtils;
 
 import java.io.File;
 import java.nio.file.Path;
@@ -17,8 +16,10 @@ import java.util.stream.Stream;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig;
+import static com.sebwalak.seln.spring_exercise.controller.SearchController.HEADER_API_KEY;
 import static java.lang.String.format;
-import static java.nio.charset.StandardCharsets.UTF_8;
+import static org.springframework.http.HttpHeaders.ACCEPT;
+import static org.springframework.http.HttpHeaders.CONTENT_TYPE;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 public class WireMockTestUtil {
@@ -39,11 +40,11 @@ public class WireMockTestUtil {
         wireMockServer.stubFor(
                 get(urlPathEqualTo(format("%s/v1/Search", wireMockContextPath)))
                         .withQueryParam("Query", queryPattern)
-                        .withHeader("Accept", equalTo(APPLICATION_JSON_VALUE))
-                        .withHeader("x-api-key", equalTo(VALID_API_KEY))
+                        .withHeader(ACCEPT, equalTo(APPLICATION_JSON_VALUE))
+                        .withHeader(HEADER_API_KEY, equalTo(VALID_API_KEY))
                         .willReturn(aResponse()
                                 .withStatus(200)
-                                .withHeader("Content-Type", APPLICATION_JSON_VALUE)
+                                .withHeader(CONTENT_TYPE, APPLICATION_JSON_VALUE)
                                 .withBodyFile(filenameWithResponseBody)));
     }
 
@@ -58,16 +59,12 @@ public class WireMockTestUtil {
         wireMockServer.stubFor(
                 get(urlPathEqualTo(format("%s/v1/Officers", wireMockContextPath)))
                         .withQueryParam("CompanyNumber", companyNumberPattern)
-                        .withHeader("Accept", equalTo(APPLICATION_JSON_VALUE))
-                        .withHeader("x-api-key", equalTo(VALID_API_KEY))
+                        .withHeader(ACCEPT, equalTo(APPLICATION_JSON_VALUE))
+                        .withHeader(HEADER_API_KEY, equalTo(VALID_API_KEY))
                         .willReturn(aResponse()
                                 .withStatus(200)
-                                .withHeader("Content-Type", APPLICATION_JSON_VALUE)
+                                .withHeader(CONTENT_TYPE, APPLICATION_JSON_VALUE)
                                 .withBodyFile(filenameWithResponseBody)));
-    }
-
-    public static String encode(String raw) {
-        return UriUtils.encode(raw, UTF_8);
     }
 
     public static WireMockServer setUp(String wireMockContextPath, boolean verbose) {

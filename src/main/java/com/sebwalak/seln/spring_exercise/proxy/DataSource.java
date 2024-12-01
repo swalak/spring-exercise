@@ -13,6 +13,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.Map;
 
+import static com.sebwalak.seln.spring_exercise.controller.SearchController.HEADER_API_KEY;
 import static java.lang.String.format;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.util.List.of;
@@ -58,8 +59,8 @@ public class DataSource {
 
     private static <T> T send(String url, RestTemplate restTemplate, String apiKey, Class<T> responseType) {
         HttpEntity<String> httpEntity = new HttpEntity<>(new HttpHeaders(new MultiValueMapAdapter<>(Map.of(
-                "x-api-key", of(apiKey),
-                "Accept", of(APPLICATION_JSON_VALUE)
+                HEADER_API_KEY, of(apiKey),
+                HttpHeaders.ACCEPT, of(APPLICATION_JSON_VALUE)
         ))));
 
         return restTemplate
