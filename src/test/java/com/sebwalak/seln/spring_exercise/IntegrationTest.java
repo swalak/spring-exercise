@@ -27,7 +27,7 @@ import static com.sebwalak.seln.spring_exercise.proxy.DataSource.createFetchOffi
 import static io.restassured.RestAssured.given;
 import static io.restassured.http.ContentType.JSON;
 import static java.lang.String.format;
-import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.*;
 import static org.hamcrest.core.IsNot.not;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 
@@ -122,4 +122,23 @@ public class IntegrationTest {
         //@formatter:on
     }
 
+    @Test
+    void shouldHandleGracefullyProxyServerError() {
+        //@formatter:off
+        given()
+            .basePath(endpointBasePath)
+            .port(localServerPort)
+            .contentType(JSON)
+            .body(new SearchRequest(null, MOCKED_COMPANY_NUMBER_SERVER_ERROR))
+            .accept(JSON)
+            .header(HEADER_API_KEY, VALID_API_KEY)
+        .when()
+            .post(endpointName)
+        .then()
+            .statusCode(500)
+            .contentType(JSON)
+            .body(containsString("Whoops only!"))
+            .body(not(containsString("123456789001010101")));
+
+    }
 }
