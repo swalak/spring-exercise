@@ -25,7 +25,7 @@ under src/test/resources/__files/minimal are minimal, anonymous and manually cra
 11. when GlobalExceptionHandler.handleOtherException is invoked it will log the message.
 It will not return the message to the user, but it may log sensitive info, which may be a problem in this case. 
 I am aware of this. 
-12. 
+12. retryability ignores http header "retry-after" - too much detail 
 # How to use
 ```shell
 curl -s -X POST -d '{"companyNumber":"06500244"}' -H "Content-Type: application/json" -H 'x-api-key: xxxx' "http://localhost:8080/api/v1/search"
@@ -33,8 +33,6 @@ curl -s -X POST -d '{"companyName":"BBC LIMITED"}' -H "Content-Type: application
 ```
 
 # Tasks to consider and potentially do
-1. needs better error handling (users shouldn't need to know about proxy going through crisis) 
-2. request retry strategies
 3. I would add swagger to the new endpoint 
 4. no observability metrics implemented
 5. healthcheck endpoint not checked/enabled 

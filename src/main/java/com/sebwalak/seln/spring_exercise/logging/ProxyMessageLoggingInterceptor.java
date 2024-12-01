@@ -67,7 +67,7 @@ public class ProxyMessageLoggingInterceptor implements ClientHttpRequestIntercep
         try {
             body = compactingObjectMapper.writeValueAsString(compactingObjectMapper.readValue(body, Object.class));
         } catch (JsonProcessingException e) {
-            log.error("Failed to parse the request body as JSON", e);
+            log.error("Failed to parse the message body as JSON, passing as is. Message: {}", e.getMessage());
         }
         return body;
     }

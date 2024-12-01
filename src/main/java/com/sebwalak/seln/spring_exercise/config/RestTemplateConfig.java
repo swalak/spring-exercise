@@ -5,10 +5,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.sebwalak.seln.spring_exercise.dump.ProxyResponseDumpingInterceptor;
 import com.sebwalak.seln.spring_exercise.logging.ProxyMessageLoggingInterceptor;
+import com.sebwalak.seln.spring_exercise.retry.HttpRequestRetryInterceptor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.converter.AbstractGenericHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
@@ -18,17 +21,14 @@ public class RestTemplateConfig {
     @Value("${spring.application.proxy.dump-requests-to-file}")
     private boolean dumpProxyRequestsToFile;
 
+    @Autowired
+    private HttpRequestRetryInterceptor httpRequestRetryInterceptor;
+
     @Bean
     public RestTemplate restTemplate(RestTemplateBuilder builder) {
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        objectMapper.setPropertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE);
-
-        MappingJackson2HttpMessageConverter messageConverter = new MappingJackson2HttpMessageConverter();
-        messageConverter.setObjectMapper(objectMapper);
 
         RestTemplateBuilder restTemplateBuilder = builder
-                .messageConverters(messageConverter);
+                .messageConverters(messageConverter());
 
         // avoid chaining slow logging component if the logging is not requested
         if (ProxyMessageLoggingInterceptor.shouldBeEnabled()) {
@@ -40,6 +40,19 @@ public class RestTemplateConfig {
             restTemplateBuilder = restTemplateBuilder.additionalInterceptors(new ProxyResponseDumpingInterceptor());
         }
 
-        return restTemplateBuilder.build();
+        return restTemplateBuilder
+                .additionalInterceptors(httpRequestRetryInterceptor)
+                .build();
+    }
+
+    public static AbstractGenericHttpMessageConverter<Object> messageConverter() {
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        objectMapper.setPropertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE);
+
+        MappingJackson2HttpMessageConverter messageConverter = new MappingJackson2HttpMessageConverter();
+        messageConverter.setObjectMapper(objectMapper);
+
+        return messageConverter;
     }
 }

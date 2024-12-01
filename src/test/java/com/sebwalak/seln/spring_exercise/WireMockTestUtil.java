@@ -20,6 +20,8 @@ import static com.sebwalak.seln.spring_exercise.controller.SearchController.HEAD
 import static java.lang.String.format;
 import static org.springframework.http.HttpHeaders.ACCEPT;
 import static org.springframework.http.HttpHeaders.CONTENT_TYPE;
+import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
+import static org.springframework.http.HttpStatus.SERVICE_UNAVAILABLE;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 interface ProxyStubMaker {
@@ -38,6 +40,7 @@ public class WireMockTestUtil {
     public final static String MOCKED_LIFELIKE_COMPANY_NUMBER = "06500244";
     public final static String MOCKED_LIFELIKE_COMPANY_NAME = "BBC LIMITED";
     public final static String MOCKED_COMPANY_NUMBER_SERVER_ERROR = "43210010";
+    public final static String MOCKED_COMPANY_NUMBER_SERVICE_UNAVAILABLE = "43210011";
 
     public static WireMockServer setUp(String wireMockContextPath, boolean verbose) {
         WireMockServer wireMockServer = new WireMockServer(wireMockConfig()
@@ -63,8 +66,16 @@ public class WireMockTestUtil {
                 "Search",
                 "Query",
                 equalTo(MOCKED_COMPANY_NUMBER_SERVER_ERROR),
-                500,
-                Path.of("src/test/resources/__files/canned-responses/proxy-does-whoops"));
+                INTERNAL_SERVER_ERROR.value(),
+                Path.of("canned-responses/proxy-does-whoops"));
+
+        proxyStubMaker.createProxyStub(
+                "Search",
+                "Query",
+                equalTo(MOCKED_COMPANY_NUMBER_SERVICE_UNAVAILABLE),
+                SERVICE_UNAVAILABLE.value(),
+                Path.of("canned-responses/service-unavailable")
+        );
 
         wireMockServer.start();
 

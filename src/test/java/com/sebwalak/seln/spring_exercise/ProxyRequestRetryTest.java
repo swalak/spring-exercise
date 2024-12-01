@@ -6,7 +6,6 @@ import com.sebwalak.seln.spring_exercise.proxy.DataSource;
 import com.sebwalak.seln.spring_exercise.service.SearchService;
 import io.restassured.RestAssured;
 import io.restassured.parsing.Parser;
-import io.restassured.path.json.JsonPath;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -17,17 +16,22 @@ import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.web.client.RestTemplate;
 
-import java.io.File;
+import java.time.Duration;
+import java.time.Instant;
 
-import static com.sebwalak.seln.spring_exercise.WireMockTestUtil.*;
+import static com.sebwalak.seln.spring_exercise.WireMockTestUtil.MOCKED_COMPANY_NUMBER_SERVICE_UNAVAILABLE;
+import static com.sebwalak.seln.spring_exercise.WireMockTestUtil.VALID_API_KEY;
 import static com.sebwalak.seln.spring_exercise.controller.SearchController.HEADER_API_KEY;
 import static io.restassured.RestAssured.given;
 import static io.restassured.http.ContentType.JSON;
 import static java.lang.String.format;
+import static java.time.Instant.now;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
-import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 import static org.hamcrest.core.IsNot.not;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 
@@ -37,7 +41,10 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 @Tag("service")
 @Tag("integration")
 @Tag("life-like-data")
-public class IntegrationTest {
+@TestPropertySource(properties = {
+        "spring.application.proxy.retry.back-off-delay-ms=500"
+})
+public class ProxyRequestRetryTest {
 
     @LocalServerPort
     private int localServerPort;
@@ -83,60 +90,17 @@ public class IntegrationTest {
     }
 
     @Test
-    void shouldSearchByCompanyNumber() {
+    @Tag("slow-test")
+    void shouldRetryOnServiceUnavailable() {
 
-        JsonPath expectedJson =
-                new JsonPath(new File("src/test/resources/__files/life-like/expected/06500244.json"));
-
-        //@formatter:off
-        given()
-            .basePath(endpointBasePath)
-            .port(localServerPort)
-            .contentType(JSON)
-            .body(new SearchRequest(null, MOCKED_LIFELIKE_COMPANY_NUMBER))
-            .accept(JSON)
-            .header(HEADER_API_KEY, VALID_API_KEY)
-        .when()
-            .post(endpointName)
-        .then()
-            .statusCode(200)
-            .contentType(JSON)
-            .body(not(equalTo(null)))
-            .body("", equalTo(expectedJson.getMap("")));
-        //@formatter:on
-    }
-
-    @Test
-    void shouldSearchByCompanyNameMatchingMultipleCompanies() {
-
-        JsonPath expectedJson =
-                new JsonPath(new File("src/test/resources/__files/life-like/expected/BBC LIMITED.json"));
+        Instant startTime = now();
 
         //@formatter:off
         given()
             .basePath(endpointBasePath)
             .port(localServerPort)
             .contentType(JSON)
-            .body(new SearchRequest(MOCKED_LIFELIKE_COMPANY_NAME, null))
-            .accept(JSON)
-            .header(HEADER_API_KEY, VALID_API_KEY)
-        .when()
-            .post(endpointName)
-        .then()
-            .statusCode(200)
-            .contentType(JSON)
-            .body("", equalTo(expectedJson.getMap("")));
-        //@formatter:on
-    }
-
-    @Test
-    void shouldHandleGracefullyProxyServerError() {
-        //@formatter:off
-        given()
-            .basePath(endpointBasePath)
-            .port(localServerPort)
-            .contentType(JSON)
-            .body(new SearchRequest(null, MOCKED_COMPANY_NUMBER_SERVER_ERROR))
+            .body(new SearchRequest(null, MOCKED_COMPANY_NUMBER_SERVICE_UNAVAILABLE))
             .accept(JSON)
             .header(HEADER_API_KEY, VALID_API_KEY)
         .when()
@@ -147,5 +111,13 @@ public class IntegrationTest {
             .body(containsString("Whoops only!"))
             .body(not(containsString("123456789001010101")));
 
+            Duration actualExecutionTime = Duration.between(startTime, now());
+            Duration expectedExecutionTimeWithExponentialBackOffStrategy =
+                    Duration.ofMillis(500).multipliedBy(1 + 2 + 4);
+
+            assertThat("Execution time was shorter than expected",
+                    actualExecutionTime,
+                    greaterThanOrEqualTo(expectedExecutionTimeWithExponentialBackOffStrategy));
     }
+
 }

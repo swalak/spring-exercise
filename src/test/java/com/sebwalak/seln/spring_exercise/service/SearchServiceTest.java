@@ -11,6 +11,7 @@ import com.sebwalak.seln.spring_exercise.model.response.Address;
 import com.sebwalak.seln.spring_exercise.model.response.Company;
 import com.sebwalak.seln.spring_exercise.model.response.Officer;
 import com.sebwalak.seln.spring_exercise.model.response.SearchResponse;
+import com.sebwalak.seln.spring_exercise.proxy.DataSource;
 import com.sebwalak.seln.spring_exercise.proxy.FetchCompaniesFromProxy;
 import com.sebwalak.seln.spring_exercise.proxy.FetchOfficersFromProxy;
 import org.junit.jupiter.api.AfterEach;
@@ -31,8 +32,6 @@ import java.io.File;
 import java.io.IOException;
 
 import static com.sebwalak.seln.spring_exercise.WireMockTestUtil.VALID_API_KEY;
-import static com.sebwalak.seln.spring_exercise.proxy.DataSource.createFetchCompaniesFromProxy;
-import static com.sebwalak.seln.spring_exercise.proxy.DataSource.createFetchOfficersFromProxy;
 import static java.lang.String.format;
 import static java.util.Collections.emptyList;
 import static java.util.List.of;
@@ -69,6 +68,9 @@ class SearchServiceTest {
     @Autowired
     private ObjectMapper objectMapper;
 
+    @Autowired
+    private DataSource dataSource;
+
     @Value("${spring.application.proxy.base-url}")
     private String proxyBaseUrl;
 
@@ -96,8 +98,8 @@ class SearchServiceTest {
 
         String testProxyBaseUrl = format("%s:%d%s/v1", proxyBaseUrl, wireMockServer.port(), proxyContextPath);
         searchService = new SearchService(
-                createFetchCompaniesFromProxy(restTemplate, testProxyBaseUrl),
-                createFetchOfficersFromProxy(restTemplate, testProxyBaseUrl));
+                dataSource.createFetchCompaniesFromProxy(restTemplate, testProxyBaseUrl),
+                dataSource.createFetchOfficersFromProxy(restTemplate, testProxyBaseUrl));
     }
 
     @AfterEach
