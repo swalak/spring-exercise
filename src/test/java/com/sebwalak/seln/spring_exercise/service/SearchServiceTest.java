@@ -30,7 +30,7 @@ import org.springframework.web.client.RestTemplate;
 import java.io.File;
 import java.io.IOException;
 
-import static com.sebwalak.seln.spring_exercise.WireMockTestUtil.*;
+import static com.sebwalak.seln.spring_exercise.WireMockTestUtil.VALID_API_KEY;
 import static com.sebwalak.seln.spring_exercise.proxy.DataSource.createFetchCompaniesFromProxy;
 import static com.sebwalak.seln.spring_exercise.proxy.DataSource.createFetchOfficersFromProxy;
 import static java.lang.String.format;
@@ -53,9 +53,9 @@ class SearchServiceTest {
 
     public static final String ANY = "anything";
     public static final Address ADDRESS = new Address(ANY, ANY, ANY, ANY, ANY);
+    public static final CompanyFromProxy ACTIVE_COMPANY_FROM_PROXY = new CompanyFromProxy(ANY, ANY, ANY, "active", ANY, ADDRESS);
     public static final OfficerFromProxy RESIGNED_OFFICER_FROM_PROXY = new OfficerFromProxy(ANY, ANY, ANY, ADDRESS, "2024-01-01");
     public static final OfficerFromProxy ACTIVE_OFFICER_FROM_PROXY = new OfficerFromProxy(ANY, ANY, ANY, ADDRESS, null);
-    public static final CompanyFromProxy ACTIVE_COMPANY_FROM_PROXY = new CompanyFromProxy(ANY, ANY, ANY, "active", ANY, ADDRESS);
     public static final boolean ONLY_ACTIVE_COMPANIES = true;
     public static final boolean ACTIVE_AND_INACTIVE_COMPANIES = false;
 
@@ -241,7 +241,6 @@ class SearchServiceTest {
                 ACTIVE_AND_INACTIVE_COMPANIES,
                 VALID_API_KEY);
 
-
         File file = new File("src/test/resources/__files/minimal/expected/43210001.json");
         SearchResponse expectedSearchResponse = objectMapper.readValue(file, SearchResponse.class);
         assertThat(actualSearchResponse, is(expectedSearchResponse));
@@ -256,7 +255,6 @@ class SearchServiceTest {
                 null,
                 ACTIVE_AND_INACTIVE_COMPANIES,
                 VALID_API_KEY);
-
 
         File file = new File("src/test/resources/__files/minimal/expected/AB.json");
         SearchResponse expectedSearchResponse = objectMapper.readValue(file, SearchResponse.class);
@@ -280,19 +278,26 @@ class SearchServiceTest {
     ///
     /// This company has no officers and that causes the service to failover.
     @Test
-    @Tag("life-like-data")
     void shouldCopeWithOfficersResponseWithNoOfficers() {
+
+        // given
+        searchService = new SearchService(mockedFetchCompaniesFromProxy, mockedFetchOfficersFromProxy);
+
+        when(mockedFetchCompaniesFromProxy.by(any(), any())).thenReturn(
+                new CompaniesFromProxy(1, of(ACTIVE_COMPANY_FROM_PROXY)));
+
+        when(mockedFetchOfficersFromProxy.by(any(), any())).thenReturn(
+                new OfficersFromProxy(emptyList()));
+
+        // when
         SearchResponse actualSearchResponse = searchService.search(
+                ANY,
                 null,
-                MOCKED_COMPANY_NAME,
                 ACTIVE_AND_INACTIVE_COMPANIES,
                 VALID_API_KEY);
 
-        Company companyWithNoOfficers = actualSearchResponse.items().stream()
-                .filter(company -> company.companyNumber().equals(MOCKED_COMPANY_NUMBER_NO_OFFICERS))
-                .findFirst()
-                .orElseThrow(() -> new RuntimeException("The company of interest is missing"));
-
-        assertThat(companyWithNoOfficers.officers(), is(emptyList()));
+        // then
+        assertThat(actualSearchResponse.items(), hasSize(1));
+        assertThat(actualSearchResponse.items().getFirst().officers(), is(emptyList()));
     }
 }
