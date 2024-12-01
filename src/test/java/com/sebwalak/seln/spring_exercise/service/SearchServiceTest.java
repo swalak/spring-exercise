@@ -5,9 +5,11 @@ import com.github.tomakehurst.wiremock.WireMockServer;
 import com.sebwalak.seln.spring_exercise.WireMockTestUtil;
 import com.sebwalak.seln.spring_exercise.model.proxy.CompaniesFromProxy;
 import com.sebwalak.seln.spring_exercise.model.proxy.CompanyFromProxy;
+import com.sebwalak.seln.spring_exercise.model.proxy.OfficerFromProxy;
 import com.sebwalak.seln.spring_exercise.model.proxy.OfficersFromProxy;
 import com.sebwalak.seln.spring_exercise.model.response.Address;
 import com.sebwalak.seln.spring_exercise.model.response.Company;
+import com.sebwalak.seln.spring_exercise.model.response.Officer;
 import com.sebwalak.seln.spring_exercise.model.response.SearchResponse;
 import com.sebwalak.seln.spring_exercise.proxy.FetchCompaniesFromProxy;
 import com.sebwalak.seln.spring_exercise.proxy.FetchOfficersFromProxy;
@@ -27,15 +29,16 @@ import org.springframework.web.client.RestTemplate;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 
 import static com.sebwalak.seln.spring_exercise.WireMockTestUtil.*;
 import static com.sebwalak.seln.spring_exercise.proxy.DataSource.createFetchCompaniesFromProxy;
 import static com.sebwalak.seln.spring_exercise.proxy.DataSource.createFetchOfficersFromProxy;
 import static java.lang.String.format;
 import static java.util.Collections.emptyList;
+import static java.util.List.of;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
@@ -46,6 +49,14 @@ import static org.mockito.Mockito.when;
 @Tag("service")
 @Tag("unit")
 class SearchServiceTest {
+
+    public static final String ANY = "anything";
+    public static final Address ADDRESS = new Address(ANY, ANY, ANY, ANY, ANY);
+    public static final OfficerFromProxy RESIGNED_OFFICER_FROM_PROXY = new OfficerFromProxy(ANY, ANY, ANY, ADDRESS, "2024-01-01");
+    public static final OfficerFromProxy ACTIVE_OFFICER_FROM_PROXY = new OfficerFromProxy(ANY, ANY, ANY, ADDRESS, null);
+    public static final CompanyFromProxy ACTIVE_COMPANY_FROM_PROXY = new CompanyFromProxy(ANY, ANY, ANY, "active", ANY, ADDRESS);
+    public static final boolean ONLY_ACTIVE_COMPANIES = true;
+    public static final boolean ACTIVE_AND_INACTIVE_COMPANIES = false;
 
     private SearchService searchService;
 
@@ -80,7 +91,7 @@ class SearchServiceTest {
         when(mockedFetchOfficersFromProxy.by(anyString(), anyString()))
                 .thenReturn(new OfficersFromProxy(emptyList()));
 
-        wireMockServer = WireMockTestUtil.setUp(proxyContextPath, false);
+        wireMockServer = WireMockTestUtil.setUp(proxyContextPath, ACTIVE_AND_INACTIVE_COMPANIES);
 
         String testProxyBaseUrl = format("%s:%d%s/v1", proxyBaseUrl, wireMockServer.port(), proxyContextPath);
         searchService = new SearchService(
@@ -100,7 +111,7 @@ class SearchServiceTest {
         searchService.search(
                 null,
                 DUMMY_COMPANY_NUMBER,
-                false,
+                ACTIVE_AND_INACTIVE_COMPANIES,
                 VALID_API_KEY);
 
         Mockito.verify(mockedFetchCompaniesFromProxy).by(eq(DUMMY_COMPANY_NUMBER), eq(VALID_API_KEY));
@@ -113,7 +124,7 @@ class SearchServiceTest {
         searchService.search(
                 DUMMY_COMPANY_NAME,
                 null,
-                false,
+                ACTIVE_AND_INACTIVE_COMPANIES,
                 VALID_API_KEY);
 
         Mockito.verify(mockedFetchCompaniesFromProxy).by(eq(DUMMY_COMPANY_NAME), eq(VALID_API_KEY));
@@ -126,7 +137,7 @@ class SearchServiceTest {
         searchService.search(
                 DUMMY_COMPANY_NAME,
                 DUMMY_COMPANY_NUMBER,
-                false,
+                ACTIVE_AND_INACTIVE_COMPANIES,
                 VALID_API_KEY);
 
         Mockito.verify(mockedFetchCompaniesFromProxy).by(eq(DUMMY_COMPANY_NUMBER), eq(VALID_API_KEY));
@@ -138,7 +149,7 @@ class SearchServiceTest {
                 .thenReturn(new CompaniesFromProxy(0, emptyList()));
         searchService = new SearchService(mockedFetchCompaniesFromProxy, mockedFetchOfficersFromProxy);
 
-        SearchResponse actualSearchResponse = searchService.search(null, DUMMY_COMPANY_NUMBER, false, VALID_API_KEY);
+        SearchResponse actualSearchResponse = searchService.search(null, DUMMY_COMPANY_NUMBER, ACTIVE_AND_INACTIVE_COMPANIES, VALID_API_KEY);
 
         assertThat(actualSearchResponse.totalResults(), is(0));
         assertThat(actualSearchResponse.items(), is(emptyList()));
@@ -154,16 +165,16 @@ class SearchServiceTest {
                 null,
                 null,
                 null,
-                new Address(null, null, null,null, null));
+                new Address(null, null, null, null, null));
 
 
         when(mockedFetchCompaniesFromProxy.by(eq(DUMMY_COMPANY_NUMBER), eq(VALID_API_KEY)))
-                .thenReturn(new CompaniesFromProxy(0, List.of(companyFromProxy)));
+                .thenReturn(new CompaniesFromProxy(0, of(companyFromProxy)));
 
         searchService.search(
                 null,
                 DUMMY_COMPANY_NUMBER,
-                false,
+                ACTIVE_AND_INACTIVE_COMPANIES,
                 VALID_API_KEY
         );
 
@@ -172,25 +183,11 @@ class SearchServiceTest {
     }
 
     @Test
-    void shouldCombineTheMockedProxyCompaniesWithMockedProxyOfficers() throws IOException {
-        SearchResponse actualSearchResponse = searchService.search(
-                null,
-                MOCKED_COMPANY_NUMBER,
-                false,
-                VALID_API_KEY);
-
-
-        File file = new File("src/test/resources/__files/company_with_officers_result.json");
-        SearchResponse expectedSearchResponse = objectMapper.readValue(file, SearchResponse.class);
-        assertThat(actualSearchResponse, is(expectedSearchResponse));
-    }
-
-    @Test
     void shouldExcludeCompaniesWithoutActiveStatus() {
         SearchResponse actualSearchResponse = searchService.search(
                 MOCKED_COMPANY_NAME,
                 null,
-                true,
+                ONLY_ACTIVE_COMPANIES,
                 VALID_API_KEY);
 
         int noOfReturnedCompanies = actualSearchResponse.items().size();
@@ -213,7 +210,7 @@ class SearchServiceTest {
         SearchResponse actualSearchResponse = searchService.search(
                 MOCKED_COMPANY_NAME,
                 null,
-                false,
+                ACTIVE_AND_INACTIVE_COMPANIES,
                 VALID_API_KEY);
 
         int noOfReturnedCompanies = actualSearchResponse.items().size();
@@ -221,7 +218,7 @@ class SearchServiceTest {
         int noOfReturnedCompaniesWithActiveStatus = (int) actualSearchResponse.items().stream()
                 .filter(Company::isActive)
                 .count();
-        
+
 
         int noOfReturnedCompaniesWithoutActiveStatus = (int) actualSearchResponse.items().stream()
                 .filter(Company::isInactive)
@@ -233,14 +230,53 @@ class SearchServiceTest {
 
     @Test
     void shouldNotIncludeOfficersWhoResigned() {
+
+        // given
+        searchService = new SearchService(mockedFetchCompaniesFromProxy, mockedFetchOfficersFromProxy);
+
+        when(mockedFetchCompaniesFromProxy.by(any(), any())).thenReturn(
+                new CompaniesFromProxy(1, of(ACTIVE_COMPANY_FROM_PROXY)));
+
+        when(mockedFetchOfficersFromProxy.by(any(), any())).thenReturn(
+                new OfficersFromProxy(of(RESIGNED_OFFICER_FROM_PROXY, ACTIVE_OFFICER_FROM_PROXY)));
+
+        // when
+        SearchResponse actualSearchResponse = searchService.search(ANY, ANY, ACTIVE_AND_INACTIVE_COMPANIES, ANY);
+
+        // then
+        assertThat(actualSearchResponse.items().getFirst().officers(),
+                contains(Officer.from(ACTIVE_OFFICER_FROM_PROXY)));
+
+    }
+
+    @Test
+    void shouldMergeOneCompanyWithItsOfficers() throws IOException {
+
         SearchResponse actualSearchResponse = searchService.search(
-                MOCKED_COMPANY_NAME,
                 null,
-                true,
+                "43210001",
+                ACTIVE_AND_INACTIVE_COMPANIES,
                 VALID_API_KEY);
 
-        assertThat(actualSearchResponse.totalResults(), is(1));
-        assertThat(actualSearchResponse.items().getFirst().officers(), hasSize(2));
+
+        File file = new File("src/test/resources/__files/minimal/expected/43210001.json");
+        SearchResponse expectedSearchResponse = objectMapper.readValue(file, SearchResponse.class);
+        assertThat(actualSearchResponse, is(expectedSearchResponse));
+    }
+
+    @Test
+    void shouldMergeMultipleCompaniesWithTheirOfficers() throws IOException {
+
+        SearchResponse actualSearchResponse = searchService.search(
+                "AB",
+                null,
+                ACTIVE_AND_INACTIVE_COMPANIES,
+                VALID_API_KEY);
+
+
+        File file = new File("src/test/resources/__files/minimal/expected/AB.json");
+        SearchResponse expectedSearchResponse = objectMapper.readValue(file, SearchResponse.class);
+        assertThat(actualSearchResponse, is(expectedSearchResponse));
     }
 
     /// A problem occurred when I run
@@ -252,7 +288,7 @@ class SearchServiceTest {
     ///     -H "Content-Type: application/json" \
     ///     -H 'x-api-key: xxxx' \
     ///     "http://localhost:8080/api/v1/search"
-    /// ```
+    ///```
     /// One of the companies matching the query criteria is:
     /// - named "B.B.C. BATHROOMS LIMITED"
     /// - number 01481686
@@ -264,7 +300,7 @@ class SearchServiceTest {
         SearchResponse actualSearchResponse = searchService.search(
                 null,
                 MOCKED_COMPANY_NAME,
-                false,
+                ACTIVE_AND_INACTIVE_COMPANIES,
                 VALID_API_KEY);
 
         Company companyWithNoOfficers = actualSearchResponse.items().stream()

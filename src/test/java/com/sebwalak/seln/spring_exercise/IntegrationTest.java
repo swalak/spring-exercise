@@ -74,16 +74,17 @@ public class IntegrationTest {
     }
 
     @Test
-    void shouldHandleABasicRequestFromControllerToMockedProxy() {
+    void shouldSearchByCompanyNumber() {
 
-        JsonPath expectedJson = new JsonPath(new File("src/test/resources/__files/life-like/expected_api_search_result_for_06500244.json"));
+        JsonPath expectedJson =
+                new JsonPath(new File("src/test/resources/__files/life-like/expected/06500244.json"));
 
         //@formatter:off
         given()
             .basePath(endpointBasePath)
             .port(localServerPort)
             .contentType(JSON)
-            .body(new SearchRequest(MOCKED_COMPANY_NAME, MOCKED_COMPANY_NUMBER))
+            .body(new SearchRequest(null, MOCKED_LIFELIKE_COMPANY_NUMBER))
             .accept(JSON)
             .header("x-api-key", VALID_API_KEY)
         .when()
@@ -91,7 +92,30 @@ public class IntegrationTest {
         .then()
             .statusCode(200)
             .contentType(JSON)
-			.body(not(equalTo(null)))
+            .body(not(equalTo(null)))
+            .body("", equalTo(expectedJson.getMap("")));
+        //@formatter:on
+    }
+
+    @Test
+    void shouldSearchByCompanyNameMatchingMultipleCompanies() {
+
+        JsonPath expectedJson =
+                new JsonPath(new File("src/test/resources/__files/life-like/expected/BBC LIMITED.json"));
+
+        //@formatter:off
+        given()
+            .basePath(endpointBasePath)
+            .port(localServerPort)
+            .contentType(JSON)
+            .body(new SearchRequest(MOCKED_LIFELIKE_COMPANY_NAME, null))
+            .accept(JSON)
+            .header("x-api-key", VALID_API_KEY)
+        .when()
+            .post(endpointName)
+        .then()
+            .statusCode(200)
+            .contentType(JSON)
             .body("", equalTo(expectedJson.getMap("")));
         //@formatter:on
     }

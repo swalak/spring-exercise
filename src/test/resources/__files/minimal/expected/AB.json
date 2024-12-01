@@ -1,0 +1,73 @@
+{
+  "total_results": 2,
+  "items": [
+    {
+      "company_status": "active",
+      "company_number": "43210001",
+      "date_of_creation": "2005-04-29",
+      "title": "ABC",
+      "company_type": "ltd",
+      "address": {
+        "premises": "1",
+        "postal_code": "PO12 34ST",
+        "country": "England",
+        "locality": "London",
+        "address_line_1": "Some street"
+      },
+      "officers": [
+        {
+          "name": "SMITH, Joe",
+          "appointed_on": "2004-11-05",
+          "address": {
+            "premises": "1",
+            "postal_code": "PO1 2ST",
+            "country": "England",
+            "locality": "Wakefield",
+            "address_line_1": "Generic Road"
+          },
+          "officer_role": "secretary"
+        },
+        {
+          "name": "BROWN, Max",
+          "appointed_on": "2004-11-05",
+          "address": {
+            "premises": "2",
+            "postal_code": "CO6 2DE",
+            "country": "Bangor",
+            "locality": "Wakefield",
+            "address_line_1": "Slow Moving Traffic Road"
+          },
+          "officer_role": "director"
+        }
+      ]
+    },
+    {
+      "company_status": "inactive",
+      "company_number": "43210002",
+      "date_of_creation": "2005-05-29",
+      "title": "BABA",
+      "company_type": "inc",
+      "address": {
+        "premises": "2",
+        "postal_code": "PO23 45ST",
+        "country": "Scotland",
+        "locality": "Glasgow",
+        "address_line_1": "North Lane"
+      },
+      "officers": [
+        {
+          "name": "IDORM, Den",
+          "appointed_on": "2006-11-05",
+          "address": {
+            "premises": "4",
+            "postal_code": "CO17 6DE",
+            "country": "Northern Ireland",
+            "locality": "Belfast",
+            "address_line_1": "Giant's Causeway"
+          },
+          "officer_role": "director"
+        }
+      ]
+    }
+  ]
+}

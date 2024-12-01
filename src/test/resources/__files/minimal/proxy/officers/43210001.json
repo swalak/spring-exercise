@@ -1,0 +1,28 @@
+{
+  "items": [
+    {
+      "name": "SMITH, Joe",
+      "appointed_on": "2004-11-05",
+      "address": {
+        "premises": "1",
+        "postal_code": "PO1 2ST",
+        "country": "England",
+        "locality": "Wakefield",
+        "address_line_1": "Generic Road"
+      },
+      "officer_role": "secretary"
+    },
+    {
+      "name": "BROWN, Max",
+      "appointed_on": "2004-11-05",
+      "address": {
+        "premises": "2",
+        "postal_code": "CO6 2DE",
+        "country": "Bangor",
+        "locality": "Wakefield",
+        "address_line_1": "Slow Moving Traffic Road"
+      },
+      "officer_role": "director"
+    }
+  ]
+}

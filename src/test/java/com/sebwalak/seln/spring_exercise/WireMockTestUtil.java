@@ -5,23 +5,29 @@ import com.github.tomakehurst.wiremock.client.WireMock;
 import com.github.tomakehurst.wiremock.common.ConsoleNotifier;
 import com.github.tomakehurst.wiremock.core.WireMockConfiguration;
 import com.github.tomakehurst.wiremock.matching.StringValuePattern;
+import org.springframework.web.util.UriUtils;
+
+import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.Objects;
+import java.util.function.Consumer;
+import java.util.stream.Stream;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig;
 import static java.lang.String.format;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
-import static org.springframework.web.util.UriUtils.encode;
 
 public class WireMockTestUtil {
 
     public static final String VALID_API_KEY = "validApiKey";
     public final static String MOCKED_LIFELIKE_COMPANY_NUMBER = "06500244";
-    public final static String MOCKED_COMPANY_NUMBER = "06500244";
-    public final static String MOCKED_COMPANY_NUMBER_2 = "065002440";
+    public final static String MOCKED_LIFELIKE_COMPANY_NAME = "BBC LIMITED";
     public final static String MOCKED_COMPANY_NUMBER_NO_OFFICERS = "01481686";
     public final static String MOCKED_COMPANY_NAME = "BBC LIMITED";
-    public final static String URL_ENCODED_MOCKED_COMPANY_NAME = encode(MOCKED_COMPANY_NAME, UTF_8);
 
     private static void stubCompanySearch(
             StringValuePattern queryPattern,
@@ -29,6 +35,7 @@ public class WireMockTestUtil {
             String wireMockContextPath,
             WireMockServer wireMockServer) {
 
+        System.out.println("query=" + queryPattern.getName() + " " + queryPattern.getValue() + " filename=" + filenameWithResponseBody);
         wireMockServer.stubFor(
                 get(urlPathEqualTo(format("%s/v1/Search", wireMockContextPath)))
                         .withQueryParam("Query", queryPattern)
@@ -46,6 +53,8 @@ public class WireMockTestUtil {
             String wireMockContextPath,
             WireMockServer wireMockServer) {
 
+        System.out.println("query=" + companyNumberPattern.getName() + " " + companyNumberPattern.getValue() + " filename=" + filenameWithResponseBody);
+
         wireMockServer.stubFor(
                 get(urlPathEqualTo(format("%s/v1/Officers", wireMockContextPath)))
                         .withQueryParam("CompanyNumber", companyNumberPattern)
@@ -56,7 +65,11 @@ public class WireMockTestUtil {
                                 .withHeader("Content-Type", APPLICATION_JSON_VALUE)
                                 .withBodyFile(filenameWithResponseBody)));
     }
-    
+
+    public static String encode(String raw) {
+        return UriUtils.encode(raw, UTF_8);
+    }
+
     public static WireMockServer setUp(String wireMockContextPath, boolean verbose) {
         WireMockConfiguration wireMockConfiguration = wireMockConfig().dynamicPort();
         if (verbose) {
@@ -64,22 +77,57 @@ public class WireMockTestUtil {
         }
         WireMockServer wireMockServer = new WireMockServer(wireMockConfiguration);
 
-        // stubs using data very close to production
-        stubCompanySearch(equalTo(MOCKED_LIFELIKE_COMPANY_NUMBER), "life-like/proxy_company_search_result_for_06500244.json", wireMockContextPath, wireMockServer);
-        stubOfficerSearch(equalTo(MOCKED_LIFELIKE_COMPANY_NUMBER), "life-like/proxy_officers_search_result_for_06500244.json", wireMockContextPath, wireMockServer);
+        // scanning `basePath` location for files and for each found file using
+        // directory and file name structure to create appropriate stubs
+        Path basePath = Paths.get("src/test/resources/__files");
 
-        // stubs using simplified data
-        stubCompanySearch(equalTo(MOCKED_COMPANY_NUMBER), "company_search_result_for_06500244.json", wireMockContextPath, wireMockServer);
-        stubCompanySearch(equalTo(MOCKED_COMPANY_NUMBER_2), "company_search_result_for_065002440.json", wireMockContextPath, wireMockServer);
-        stubCompanySearch(matching(URL_ENCODED_MOCKED_COMPANY_NAME), "company_search_result_for_BBC_LIMITED.json", wireMockContextPath, wireMockServer);
-        stubOfficerSearch(equalTo(MOCKED_COMPANY_NUMBER), "officers_search_result_for_06500244.json", wireMockContextPath, wireMockServer);
-        stubOfficerSearch(equalTo(MOCKED_COMPANY_NUMBER_2), "officers_search_result_for_065002440.json", wireMockContextPath, wireMockServer);
-        stubOfficerSearch(equalTo(MOCKED_COMPANY_NUMBER_NO_OFFICERS), "officers_search_result_for_01481686_no_officers.json", wireMockContextPath, wireMockServer);
+        Consumer<Path> createProxyCompanySearchStub = path -> {
+            String fileNameNoExt = path.getFileName().toString();
+            fileNameNoExt = fileNameNoExt.substring(0, fileNameNoExt.lastIndexOf('.'));
+
+            stubCompanySearch(
+                    equalTo(fileNameNoExt),
+                    basePath.relativize(path).toString(),
+                    wireMockContextPath,
+                    wireMockServer);
+
+        };
+
+        Consumer<Path> createProxyOfficersSearchStub = path -> {
+            String fileNameNoExt = path.getFileName().toString();
+            fileNameNoExt = fileNameNoExt.substring(0, fileNameNoExt.lastIndexOf('.'));
+
+            stubOfficerSearch(
+                    equalTo(fileNameNoExt),
+                    basePath.relativize(path).toString(),
+                    wireMockContextPath,
+                    wireMockServer);
+        };
+
+        Stream.of("src/test/resources/__files/life-like/proxy/search",
+                        "src/test/resources/__files/minimal/proxy/search")
+                .map(File::new)
+                .map(File::listFiles)
+                .filter(Objects::nonNull)
+                .flatMap(Arrays::stream)
+                .filter(File::isFile)
+                .map(File::toPath)
+                .forEach(createProxyCompanySearchStub);
+
+        Stream.of("src/test/resources/__files/life-like/proxy/officers",
+                        "src/test/resources/__files/minimal/proxy/officers")
+                .map(File::new)
+                .map(File::listFiles)
+                .filter(Objects::nonNull)
+                .flatMap(Arrays::stream)
+                .filter(File::isFile)
+                .map(File::toPath)
+                .forEach(createProxyOfficersSearchStub);
 
         wireMockServer.start();
 
         WireMock.configureFor(wireMockServer.port());
-        
+
         return wireMockServer;
     }
 

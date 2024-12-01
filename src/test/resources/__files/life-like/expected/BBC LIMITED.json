@@ -1,0 +1,1116 @@
+{
+  "total_results": 20,
+  "items": [
+    {
+      "company_number": "06500244",
+      "company_type": "ltd",
+      "title": "BBC LIMITED",
+      "company_status": "active",
+      "date_of_creation": "2008-02-11",
+      "address": {
+        "premises": null,
+        "address_line_1": "Boswell Cottage Main Street",
+        "postal_code": "DN22 0AD",
+        "locality": "Retford",
+        "country": "England"
+      },
+      "officers": [
+        {
+          "name": "BOXALL, Sarah Victoria",
+          "officer_role": "secretary",
+          "appointed_on": "2008-02-11",
+          "address": {
+            "premises": "5",
+            "address_line_1": "Cranford Close",
+            "postal_code": "SW20 0DP",
+            "locality": "London",
+            "country": "England"
+          }
+        },
+        {
+          "name": "BRAY, Simon Anton",
+          "officer_role": "director",
+          "appointed_on": "2008-02-11",
+          "address": {
+            "premises": "5",
+            "address_line_1": "Cranford Close",
+            "postal_code": "SW20 0DP",
+            "locality": "London",
+            "country": "England"
+          }
+        }
+      ]
+    },
+    {
+      "company_number": "12990923",
+      "company_type": "ltd",
+      "title": "BASEMENTS SOLUTIONS LIMITED",
+      "company_status": "active",
+      "date_of_creation": "2020-11-02",
+      "address": {
+        "premises": null,
+        "address_line_1": "52a Gordon Road",
+        "postal_code": "W5 2AR",
+        "locality": "London",
+        "country": "England"
+      },
+      "officers": [
+        {
+          "name": "SZELETZKI, Vanderlei",
+          "officer_role": "director",
+          "appointed_on": "2020-11-02",
+          "address": {
+            "premises": "52a",
+            "address_line_1": "Gordon Road",
+            "postal_code": "W5 2AR",
+            "locality": "London",
+            "country": "England"
+          }
+        }
+      ]
+    },
+    {
+      "company_number": "07520089",
+      "company_type": "ltd",
+      "title": "BBC AND CO LIMITED",
+      "company_status": "active",
+      "date_of_creation": "2011-02-07",
+      "address": {
+        "premises": "Unit 2",
+        "address_line_1": "Restormel Estate",
+        "postal_code": "PL22 0HG",
+        "locality": "Lostwithiel",
+        "country": null
+      },
+      "officers": [
+        {
+          "name": "BATE, Philip Henry",
+          "officer_role": "director",
+          "appointed_on": "2011-02-07",
+          "address": {
+            "premises": "Unit 2",
+            "address_line_1": "Restormel Estate",
+            "postal_code": "PL22 0HG",
+            "locality": "Lostwithiel",
+            "country": "United Kingdom"
+          }
+        }
+      ]
+    },
+    {
+      "company_number": "09670032",
+      "company_type": "ltd",
+      "title": "BBC AESTHETICS LIMITED",
+      "company_status": "active",
+      "date_of_creation": "2015-07-03",
+      "address": {
+        "premises": null,
+        "address_line_1": "Suite 4 Second Floor Honeycomb",
+        "postal_code": "L3 9NG",
+        "locality": "Liverpool",
+        "country": "England"
+      },
+      "officers": [
+        {
+          "name": "LEWIS, Natasha Patricia",
+          "officer_role": "director",
+          "appointed_on": "2015-07-03",
+          "address": {
+            "premises": "Suite 4 Second Floor",
+            "address_line_1": "Honeycomb",
+            "postal_code": "L3 9NG",
+            "locality": "Liverpool",
+            "country": "England"
+          }
+        }
+      ]
+    },
+    {
+      "company_number": "07215276",
+      "company_type": "ltd",
+      "title": "BBC APPLICATIONS LIMITED",
+      "company_status": "dissolved",
+      "date_of_creation": "2010-04-07",
+      "address": {
+        "premises": "2",
+        "address_line_1": "Longwood Hall",
+        "postal_code": "BD16 2RX",
+        "locality": "Bingley",
+        "country": "England"
+      },
+      "officers": [
+        {
+          "name": "HALAY, Howerd",
+          "officer_role": "secretary",
+          "appointed_on": "2010-04-07",
+          "address": {
+            "premises": "2",
+            "address_line_1": "Longwood Hall",
+            "postal_code": "BD16 2RX",
+            "locality": "Bingley",
+            "country": "United Kingdom"
+          }
+        },
+        {
+          "name": "HALAY, Howerd",
+          "officer_role": "director",
+          "appointed_on": "2010-04-07",
+          "address": {
+            "premises": "2",
+            "address_line_1": "Longwood Hall",
+            "postal_code": "BD16 2RX",
+            "locality": "Bingley",
+            "country": "United Kingdom"
+          }
+        }
+      ]
+    },
+    {
+      "company_number": "01481686",
+      "company_type": "ltd",
+      "title": "B.B.C. BATHROOMS LIMITED",
+      "company_status": "liquidation",
+      "date_of_creation": "1980-02-27",
+      "address": {
+        "premises": "602/604 ",
+        "address_line_1": "Seven Sisters Road",
+        "postal_code": "N15 6HT",
+        "locality": null,
+        "country": null
+      },
+      "officers": []
+    },
+    {
+      "company_number": "04543129",
+      "company_type": "ltd",
+      "title": "B.B.C (BIG BEN CONSULTING) GROUP LTD",
+      "company_status": "dissolved",
+      "date_of_creation": "2002-09-24",
+      "address": {
+        "premises": "67",
+        "address_line_1": "Westow Street",
+        "postal_code": "SE19 3RW",
+        "locality": "London",
+        "country": null
+      },
+      "officers": [
+        {
+          "name": "MARINENKO, Maxim",
+          "officer_role": "director",
+          "appointed_on": "2002-09-24",
+          "address": {
+            "premises": null,
+            "address_line_1": "67 Westow Street",
+            "postal_code": "SE19 3RW",
+            "locality": "London",
+            "country": null
+          }
+        }
+      ]
+    },
+    {
+      "company_number": "14006528",
+      "company_type": "ltd",
+      "title": "BBC - BLESSING BEAUTY COSMETICS LIMITED",
+      "company_status": "active",
+      "date_of_creation": "2022-03-28",
+      "address": {
+        "premises": "23",
+        "address_line_1": "West Close",
+        "postal_code": "N9 9QR",
+        "locality": "London",
+        "country": "England"
+      },
+      "officers": [
+        {
+          "name": "ADEBANJO, Blessing Bunmi",
+          "officer_role": "director",
+          "appointed_on": "2022-03-28",
+          "address": {
+            "premises": "23",
+            "address_line_1": "West Close",
+            "postal_code": "N9 9QR",
+            "locality": "London",
+            "country": "England"
+          }
+        },
+        {
+          "name": "ADEDIBU, Danniella Bolade",
+          "officer_role": "director",
+          "appointed_on": "2022-03-28",
+          "address": {
+            "premises": "23",
+            "address_line_1": "West Close",
+            "postal_code": "N9 9QR",
+            "locality": "London",
+            "country": "England"
+          }
+        }
+      ]
+    },
+    {
+      "company_number": "07201733",
+      "company_type": "private-limited-guarant-nsc",
+      "title": "BBC (BRISTOL) CLUB LIMITED",
+      "company_status": "dissolved",
+      "date_of_creation": "2010-03-24",
+      "address": {
+        "premises": "C/O Begbies Traynor, 3rd Floor Castlemead",
+        "address_line_1": "Lower Castle Street",
+        "postal_code": "BS1 3AG",
+        "locality": "Bristol",
+        "country": null
+      },
+      "officers": [
+        {
+          "name": "HAYNES, Andrew John",
+          "officer_role": "secretary",
+          "appointed_on": "2010-03-24",
+          "address": {
+            "premises": "Bbc Broadcasting House",
+            "address_line_1": "Whiteladies Road",
+            "postal_code": "BS8 2LR",
+            "locality": "Bristol",
+            "country": null
+          }
+        },
+        {
+          "name": "BANWELL, Timothy James",
+          "officer_role": "director",
+          "appointed_on": "2010-03-24",
+          "address": {
+            "premises": "Bbc Broadcasting House",
+            "address_line_1": "Whiteladies Road",
+            "postal_code": "BS8 2LR",
+            "locality": "Bristol",
+            "country": null
+          }
+        },
+        {
+          "name": "CHANEY, Yseult Kate Serena",
+          "officer_role": "director",
+          "appointed_on": "2010-03-24",
+          "address": {
+            "premises": "Bbc Broadcasting House",
+            "address_line_1": "Whiteladies Road",
+            "postal_code": "BS8 2LR",
+            "locality": "Bristol",
+            "country": null
+          }
+        },
+        {
+          "name": "GUNTON, Michael De La Roche, Dr",
+          "officer_role": "director",
+          "appointed_on": "2010-03-24",
+          "address": {
+            "premises": "Bbc Broadcasting House",
+            "address_line_1": "Whiteladies Road",
+            "postal_code": "BS8 2LR",
+            "locality": "Bristol",
+            "country": null
+          }
+        },
+        {
+          "name": "HAYNES, Andrew John",
+          "officer_role": "director",
+          "appointed_on": "2010-03-24",
+          "address": {
+            "premises": "Bbc Broadcasting House",
+            "address_line_1": "Whiteladies Road",
+            "postal_code": "BS8 2LR",
+            "locality": "Bristol",
+            "country": null
+          }
+        }
+      ]
+    },
+    {
+      "company_number": "11811163",
+      "company_type": "ltd",
+      "title": "BBC CARE SERVICE LIMITED",
+      "company_status": "active",
+      "date_of_creation": "2019-02-06",
+      "address": {
+        "premises": null,
+        "address_line_1": "3000 Hillswood Drive",
+        "postal_code": "KT16 0RS",
+        "locality": "Chertsey",
+        "country": "England"
+      },
+      "officers": [
+        {
+          "name": "KABALI, Milley",
+          "officer_role": "director",
+          "appointed_on": "2019-02-06",
+          "address": {
+            "premises": "3000",
+            "address_line_1": "Hillswood Drive",
+            "postal_code": "KT16 0RS",
+            "locality": "Chertsey",
+            "country": "England"
+          }
+        }
+      ]
+    },
+    {
+      "company_number": "12800068",
+      "company_type": "ltd",
+      "title": "BBC CATERING LTD",
+      "company_status": "active",
+      "date_of_creation": "2020-08-07",
+      "address": {
+        "premises": null,
+        "address_line_1": "Unit C",
+        "postal_code": "BB2 2AN",
+        "locality": "Blackburn",
+        "country": "United Kingdom"
+      },
+      "officers": [
+        {
+          "name": "RIAZ, Umair",
+          "officer_role": "director",
+          "appointed_on": "2023-07-01",
+          "address": {
+            "premises": "Unit C",
+            "address_line_1": "Weir St",
+            "postal_code": "BB2 2AN",
+            "locality": "Blackburn",
+            "country": "United Kingdom"
+          }
+        }
+      ]
+    },
+    {
+      "company_number": "04723022",
+      "company_type": "private-limited-guarant-nsc-limited-exemption",
+      "title": "BBC CHILDREN IN NEED",
+      "company_status": "active",
+      "date_of_creation": "2003-04-04",
+      "address": {
+        "premises": "4th",
+        "address_line_1": "Floor Dock House",
+        "postal_code": "M50 2LH",
+        "locality": "Mediacity Uk",
+        "country": "England"
+      },
+      "officers": [
+        {
+          "name": "OKOTIE, Anthony",
+          "officer_role": "secretary",
+          "appointed_on": "2020-12-01",
+          "address": {
+            "premises": "4th Floor Dock House",
+            "address_line_1": "4th Floor Dock House",
+            "postal_code": "M50 2LH",
+            "locality": "Mediacity Uk",
+            "country": "England"
+          }
+        },
+        {
+          "name": "BIJA, Cherrie Michelle",
+          "officer_role": "director",
+          "appointed_on": "2022-05-11",
+          "address": {
+            "premises": "4th Floor Dock House",
+            "address_line_1": "4th Floor Dock House",
+            "postal_code": "M50 2LH",
+            "locality": "Mediacity Uk",
+            "country": "England"
+          }
+        },
+        {
+          "name": "BRADLEY, Trevor Bryan",
+          "officer_role": "director",
+          "appointed_on": "2019-06-26",
+          "address": {
+            "premises": "4th Floor Dock House",
+            "address_line_1": "4th Floor Dock House",
+            "postal_code": "M50 2LH",
+            "locality": "Mediacity Uk",
+            "country": "England"
+          }
+        },
+        {
+          "name": "BRYAN, Randel",
+          "officer_role": "director",
+          "appointed_on": "2022-01-17",
+          "address": {
+            "premises": "4th Floor Dock House",
+            "address_line_1": "4th Floor Dock House",
+            "postal_code": "M50 2LH",
+            "locality": "Mediacity Uk",
+            "country": "England"
+          }
+        },
+        {
+          "name": "BURNS, Rhona Ann",
+          "officer_role": "director",
+          "appointed_on": "2020-05-02",
+          "address": {
+            "premises": "4th Floor Dock House",
+            "address_line_1": "4th Floor Dock House",
+            "postal_code": "M50 2LH",
+            "locality": "Mediacity Uk",
+            "country": "England"
+          }
+        },
+        {
+          "name": "CLIFTON, Kieran Oliver Edward",
+          "officer_role": "director",
+          "appointed_on": "2019-10-15",
+          "address": {
+            "premises": "4th Floor Dock House",
+            "address_line_1": "4th Floor Dock House",
+            "postal_code": "M50 2LH",
+            "locality": "Mediacity Uk",
+            "country": "England"
+          }
+        },
+        {
+          "name": "FAIRCLOUGH, James",
+          "officer_role": "director",
+          "appointed_on": "2021-10-01",
+          "address": {
+            "premises": "4th Floor Dock House",
+            "address_line_1": "4th Floor Dock House",
+            "postal_code": "M50 2LH",
+            "locality": "Mediacity Uk",
+            "country": "England"
+          }
+        },
+        {
+          "name": "HIDALGO, Patricia Reina",
+          "officer_role": "director",
+          "appointed_on": "2024-03-01",
+          "address": {
+            "premises": "4th Floor Dock House",
+            "address_line_1": "4th Floor Dock House",
+            "postal_code": "M50 2LH",
+            "locality": "Mediacity Uk",
+            "country": "England"
+          }
+        },
+        {
+          "name": "IMAFIDON, Kenny",
+          "officer_role": "director",
+          "appointed_on": "2019-04-30",
+          "address": {
+            "premises": "Bridge House",
+            "address_line_1": "Media City Uk",
+            "postal_code": "M50 2BH",
+            "locality": "Salford",
+            "country": "England"
+          }
+        },
+        {
+          "name": "LAMB, Suzanne",
+          "officer_role": "director",
+          "appointed_on": "2020-12-01",
+          "address": {
+            "premises": "4th Floor Dock House",
+            "address_line_1": "4th Floor Dock House",
+            "postal_code": "M50 2LH",
+            "locality": "Mediacity Uk",
+            "country": "England"
+          }
+        },
+        {
+          "name": "MUNRO, Jonathan Charles",
+          "officer_role": "director",
+          "appointed_on": "2020-05-02",
+          "address": {
+            "premises": "4th Floor Dock House",
+            "address_line_1": "4th Floor Dock House",
+            "postal_code": "M50 2LH",
+            "locality": "Mediacity Uk",
+            "country": "England"
+          }
+        },
+        {
+          "name": "TAVAZIVA, Leigh",
+          "officer_role": "director",
+          "appointed_on": "2022-10-01",
+          "address": {
+            "premises": "4th Floor Dock House",
+            "address_line_1": "4th Floor Dock House",
+            "postal_code": "M50 2LH",
+            "locality": "Mediacity Uk",
+            "country": "England"
+          }
+        },
+        {
+          "name": "THOMAS, Helen Mariam",
+          "officer_role": "director",
+          "appointed_on": "2024-03-01",
+          "address": {
+            "premises": "4th Floor Dock House",
+            "address_line_1": "4th Floor Dock House",
+            "postal_code": "M50 2LH",
+            "locality": "Mediacity Uk",
+            "country": "England"
+          }
+        },
+        {
+          "name": "WALLACE, Jo",
+          "officer_role": "director",
+          "appointed_on": "2023-10-19",
+          "address": {
+            "premises": "4th Floor Dock House",
+            "address_line_1": "4th Floor Dock House",
+            "postal_code": "M50 2LH",
+            "locality": "Mediacity Uk",
+            "country": "England"
+          }
+        }
+      ]
+    },
+    {
+      "company_number": "09905558",
+      "company_type": "ltd",
+      "title": "BBC CHILDREN'S PRODUCTIONS LIMITED",
+      "company_status": "active",
+      "date_of_creation": "2015-12-07",
+      "address": {
+        "premises": null,
+        "address_line_1": "1 Television Centre",
+        "postal_code": "W12 7FA",
+        "locality": "London",
+        "country": "England"
+      },
+      "officers": [
+        {
+          "name": "CORRIETTE, Anthony",
+          "officer_role": "secretary",
+          "appointed_on": "2024-09-26",
+          "address": {
+            "premises": "1 Television Centre",
+            "address_line_1": "101 Wood Lane",
+            "postal_code": "W12 7FA",
+            "locality": "London",
+            "country": "United Kingdom"
+          }
+        },
+        {
+          "name": "ESCOTT, Sarah",
+          "officer_role": "director",
+          "appointed_on": "2024-03-28",
+          "address": {
+            "premises": "1 Television Centre",
+            "address_line_1": "Wood Lane",
+            "postal_code": "W12 7FA",
+            "locality": "London",
+            "country": "England"
+          }
+        },
+        {
+          "name": "MILLS, Jonathan Charles",
+          "officer_role": "director",
+          "appointed_on": "2023-02-01",
+          "address": {
+            "premises": "1 Television Centre",
+            "address_line_1": "Wood Lane",
+            "postal_code": "W12 7FA",
+            "locality": "London",
+            "country": "England"
+          }
+        },
+        {
+          "name": "PERSSON, Cecilia Inger",
+          "officer_role": "director",
+          "appointed_on": "2022-04-01",
+          "address": {
+            "premises": "1 Television Centre",
+            "address_line_1": "Wood Lane",
+            "postal_code": "W12 7FA",
+            "locality": "London",
+            "country": "England"
+          }
+        }
+      ]
+    },
+    {
+      "company_number": "13719086",
+      "company_type": "ltd",
+      "title": "BBC CHILDRENS RIVERSIDE LIMITED",
+      "company_status": "active",
+      "date_of_creation": "2021-11-02",
+      "address": {
+        "premises": null,
+        "address_line_1": "Broadcasting House",
+        "postal_code": "W1A 1AA",
+        "locality": "London",
+        "country": "England"
+      },
+      "officers": [
+        {
+          "name": "RANYARD, Peter John",
+          "officer_role": "secretary",
+          "appointed_on": "2021-11-26",
+          "address": {
+            "premises": "C/O Bbc Legal",
+            "address_line_1": "Broadcast House",
+            "postal_code": "W1A 1AA",
+            "locality": "London",
+            "country": "United Kingdom"
+          }
+        },
+        {
+          "name": "MACDONALD, Una",
+          "officer_role": "director",
+          "appointed_on": "2024-10-09",
+          "address": {
+            "premises": "Broadcasting House",
+            "address_line_1": "Portland Place",
+            "postal_code": "W1A 1AA",
+            "locality": "London",
+            "country": "England"
+          }
+        },
+        {
+          "name": "MITCHELL, Charmaine Helen",
+          "officer_role": "director",
+          "appointed_on": "2024-06-21",
+          "address": {
+            "premises": "Broadcasting House",
+            "address_line_1": "Portland Place",
+            "postal_code": "W1A 1AA",
+            "locality": "London",
+            "country": "England"
+          }
+        },
+        {
+          "name": "RANYARD, Peter John",
+          "officer_role": "director",
+          "appointed_on": "2021-11-26",
+          "address": {
+            "premises": "Bbc New Broadcasting House",
+            "address_line_1": "Portland Place",
+            "postal_code": "W1A 1AA",
+            "locality": "London",
+            "country": "United Kingdom"
+          }
+        },
+        {
+          "name": "SING, Samantha Geraldine",
+          "officer_role": "director",
+          "appointed_on": "2024-06-21",
+          "address": {
+            "premises": "Broadcasting House",
+            "address_line_1": "Portland Place",
+            "postal_code": "W1A 1AA",
+            "locality": "London",
+            "country": "England"
+          }
+        }
+      ]
+    },
+    {
+      "company_number": "07211699",
+      "company_type": "private-limited-guarant-nsc",
+      "title": "BBC CLUB SPORTS AND LEISURE LIMITED",
+      "company_status": "active",
+      "date_of_creation": "2010-04-01",
+      "address": {
+        "premises": "London Broadcasting House Bbc Club Sports And Leisure Ltd",
+        "address_line_1": "Portland Place",
+        "postal_code": "W1A 1AA",
+        "locality": "London",
+        "country": "England"
+      },
+      "officers": [
+        {
+          "name": "CARTER, Gill",
+          "officer_role": "director",
+          "appointed_on": "2017-01-12",
+          "address": {
+            "premises": "London Broadcasting House",
+            "address_line_1": "Bbc Club Sports And Leisure Ltd",
+            "postal_code": "W1A 1AA",
+            "locality": "London",
+            "country": "England"
+          }
+        },
+        {
+          "name": "COOK, Ross Howard",
+          "officer_role": "director",
+          "appointed_on": "2014-11-06",
+          "address": {
+            "premises": "London Broadcasting House",
+            "address_line_1": "Bbc Club Sports And Leisure Ltd",
+            "postal_code": "W1A 1AA",
+            "locality": "London",
+            "country": "England"
+          }
+        },
+        {
+          "name": "JORDAN, David James",
+          "officer_role": "director",
+          "appointed_on": "2010-12-15",
+          "address": {
+            "premises": "London Broadcasting House",
+            "address_line_1": "Bbc Club Sports And Leisure Ltd",
+            "postal_code": "W1A 1AA",
+            "locality": "London",
+            "country": "England"
+          }
+        },
+        {
+          "name": "KIDD, Andrea Violet",
+          "officer_role": "director",
+          "appointed_on": "2015-03-24",
+          "address": {
+            "premises": "Wogan House",
+            "address_line_1": "Bbc Club Wogan House",
+            "postal_code": "W1A 1AA",
+            "locality": "London",
+            "country": "United Kingdom"
+          }
+        },
+        {
+          "name": "MOUCHTEREM, Achmet",
+          "officer_role": "director",
+          "appointed_on": "2014-03-05",
+          "address": {
+            "premises": "London Broadcasting House",
+            "address_line_1": "Bbc Club Sports And Leisure Ltd",
+            "postal_code": "W1A 1AA",
+            "locality": "London",
+            "country": "England"
+          }
+        },
+        {
+          "name": "WINFIELD, John",
+          "officer_role": "director",
+          "appointed_on": "2010-04-01",
+          "address": {
+            "premises": "London Broadcasting House",
+            "address_line_1": "Bbc Club Sports And Leisure Ltd",
+            "postal_code": "W1A 1AA",
+            "locality": "London",
+            "country": "England"
+          }
+        }
+      ]
+    },
+    {
+      "company_number": "13005466",
+      "company_type": "ltd",
+      "title": "BBC COFFEE LIMITED",
+      "company_status": "active",
+      "date_of_creation": "2020-11-09",
+      "address": {
+        "premises": null,
+        "address_line_1": "Adanac Business Park, Adanac North, Unit E3 & E4,",
+        "postal_code": "SO16 0BT",
+        "locality": "Southampton",
+        "country": "United Kingdom"
+      },
+      "officers": [
+        {
+          "name": "BODIAM, Kane Ronald Vasudevan",
+          "officer_role": "director",
+          "appointed_on": "2022-02-20",
+          "address": {
+            "premises": "Adanac Business Park,",
+            "address_line_1": "Adanac North, Unit E3 & E4,",
+            "postal_code": "SO16 0BT",
+            "locality": "Southampton",
+            "country": "United Kingdom"
+          }
+        },
+        {
+          "name": "GOLDKORN, Benjamin John, Director",
+          "officer_role": "director",
+          "appointed_on": "2021-01-01",
+          "address": {
+            "premises": "Adanac Business Park,",
+            "address_line_1": "Adanac North, Unit E3 & E4,",
+            "postal_code": "SO16 0BT",
+            "locality": "Southampton",
+            "country": "United Kingdom"
+          }
+        },
+        {
+          "name": "KOCHHAR, Dhruv Neeraj",
+          "officer_role": "director",
+          "appointed_on": "2020-11-09",
+          "address": {
+            "premises": "Adanac Business Park,",
+            "address_line_1": "Adanac North, Unit E3 & E4,",
+            "postal_code": "SO16 0BT",
+            "locality": "Southampton",
+            "country": "United Kingdom"
+          }
+        }
+      ]
+    },
+    {
+      "company_number": "09158624",
+      "company_type": "ltd",
+      "title": "BBC COMEDY PRODUCTIONS LIMITED",
+      "company_status": "active",
+      "date_of_creation": "2014-08-01",
+      "address": {
+        "premises": null,
+        "address_line_1": "1 Television Centre",
+        "postal_code": "W12 7FA",
+        "locality": "London",
+        "country": "United Kingdom"
+      },
+      "officers": [
+        {
+          "name": "CORRIETTE, Anthony",
+          "officer_role": "secretary",
+          "appointed_on": "2024-09-26",
+          "address": {
+            "premises": "1 Television Centre",
+            "address_line_1": "101 Wood Lane",
+            "postal_code": "W12 7FA",
+            "locality": "London",
+            "country": "United Kingdom"
+          }
+        },
+        {
+          "name": "ESCOTT, Sarah",
+          "officer_role": "director",
+          "appointed_on": "2024-03-28",
+          "address": {
+            "premises": "1 Television Centre",
+            "address_line_1": "101 Wood Lane",
+            "postal_code": "W12 7FA",
+            "locality": "London",
+            "country": "United Kingdom"
+          }
+        },
+        {
+          "name": "MELLORS, Holly",
+          "officer_role": "director",
+          "appointed_on": "2023-02-01",
+          "address": {
+            "premises": "1 Television Centre",
+            "address_line_1": "101 Wood Lane",
+            "postal_code": "W12 7FA",
+            "locality": "London",
+            "country": "United Kingdom"
+          }
+        }
+      ]
+    },
+    {
+      "company_number": "04463534",
+      "company_type": "ltd",
+      "title": "BBC COMMERCIAL LIMITED",
+      "company_status": "active",
+      "date_of_creation": "2002-06-18",
+      "address": {
+        "premises": null,
+        "address_line_1": "1 Television Centre",
+        "postal_code": "W12 7FA",
+        "locality": "London",
+        "country": "United Kingdom"
+      },
+      "officers": [
+        {
+          "name": "CORRIETTE, Anthony",
+          "officer_role": "secretary",
+          "appointed_on": "2022-04-01",
+          "address": {
+            "premises": "1 Television Centre",
+            "address_line_1": "101 Wood Lane",
+            "postal_code": "W12 7FA",
+            "locality": "London",
+            "country": "United Kingdom"
+          }
+        },
+        {
+          "name": "BHOW, Gunjan Dhanesh",
+          "officer_role": "director",
+          "appointed_on": "2022-04-01",
+          "address": {
+            "premises": "1",
+            "address_line_1": "Television Centre",
+            "postal_code": "W12 7FA",
+            "locality": "London",
+            "country": "United Kingdom"
+          }
+        },
+        {
+          "name": "BUFFINI, Damon Marcus, Sir",
+          "officer_role": "director",
+          "appointed_on": "2022-04-01",
+          "address": {
+            "premises": "1",
+            "address_line_1": "Television Centre",
+            "postal_code": "W12 7FA",
+            "locality": "London",
+            "country": "United Kingdom"
+          }
+        },
+        {
+          "name": "FUSSELL, Thomas Cyrus",
+          "officer_role": "director",
+          "appointed_on": "2017-09-18",
+          "address": {
+            "premises": "1 Television Centre",
+            "address_line_1": "101 Wood Lane",
+            "postal_code": "W12 7FA",
+            "locality": "London",
+            "country": "United Kingdom"
+          }
+        },
+        {
+          "name": "FYFIELD, Rowenna Mai",
+          "officer_role": "director",
+          "appointed_on": "2019-07-18",
+          "address": {
+            "premises": "1",
+            "address_line_1": "Television Centre",
+            "postal_code": "W12 7FA",
+            "locality": "London",
+            "country": "United Kingdom"
+          }
+        },
+        {
+          "name": "GRIFFITHS, Ian Ward",
+          "officer_role": "director",
+          "appointed_on": "2023-04-01",
+          "address": {
+            "premises": "1",
+            "address_line_1": "Television Centre",
+            "postal_code": "W12 7FA",
+            "locality": "London",
+            "country": "United Kingdom"
+          }
+        },
+        {
+          "name": "HUNGATE, Claire",
+          "officer_role": "director",
+          "appointed_on": "2023-04-01",
+          "address": {
+            "premises": "1",
+            "address_line_1": "Television Centre",
+            "postal_code": "W12 7FA",
+            "locality": "London",
+            "country": "United Kingdom"
+          }
+        },
+        {
+          "name": "NEWMAN, Gary Stephen",
+          "officer_role": "director",
+          "appointed_on": "2023-04-01",
+          "address": {
+            "premises": "1",
+            "address_line_1": "Television Centre",
+            "postal_code": "W12 7FA",
+            "locality": "London",
+            "country": "United Kingdom"
+          }
+        },
+        {
+          "name": "SINGH, Bhavneet",
+          "officer_role": "director",
+          "appointed_on": "2022-04-01",
+          "address": {
+            "premises": "1",
+            "address_line_1": "Television Centre",
+            "postal_code": "W12 7FA",
+            "locality": "London",
+            "country": "United Kingdom"
+          }
+        },
+        {
+          "name": "SOLDI, Marinella",
+          "officer_role": "director",
+          "appointed_on": "2024-09-01",
+          "address": {
+            "premises": "1",
+            "address_line_1": "Television Centre",
+            "postal_code": "W12 7FA",
+            "locality": "London",
+            "country": "United Kingdom"
+          }
+        },
+        {
+          "name": "TAVAZIVA, Anne Leigh",
+          "officer_role": "director",
+          "appointed_on": "2021-03-25",
+          "address": {
+            "premises": "1",
+            "address_line_1": "Television Centre",
+            "postal_code": "W12 7FA",
+            "locality": "London",
+            "country": "United Kingdom"
+          }
+        }
+      ]
+    },
+    {
+      "company_number": "13637184",
+      "company_type": "ltd",
+      "title": "BBC CONCRETE PRODUCTS LTD",
+      "company_status": "active",
+      "date_of_creation": "2021-09-22",
+      "address": {
+        "premises": null,
+        "address_line_1": "Cartwright Mill",
+        "postal_code": "WF12 9QB",
+        "locality": "Dewsbury",
+        "country": "England"
+      },
+      "officers": [
+        {
+          "name": "HAFEEZ, Abdul",
+          "officer_role": "director",
+          "appointed_on": "2021-09-22",
+          "address": {
+            "premises": "Cartwright Mill",
+            "address_line_1": "Watergate Road",
+            "postal_code": "WF12 9QB",
+            "locality": "Dewsbury",
+            "country": "England"
+          }
+        }
+      ]
+    },
+    {
+      "company_number": "13903907",
+      "company_type": "ltd",
+      "title": "BBC CONSERVATOIRE OF MUSIC & MATHEMATICS LTD",
+      "company_status": "dissolved",
+      "date_of_creation": "2022-02-09",
+      "address": {
+        "premises": null,
+        "address_line_1": "22 Notting Hill Gate",
+        "postal_code": "W11 3JE",
+        "locality": "London",
+        "country": "United Kingdom"
+      },
+      "officers": [
+        {
+          "name": "DEAL CHAMBERS LTD",
+          "officer_role": "corporate-secretary",
+          "appointed_on": "2022-02-09",
+          "address": {
+            "premises": "22",
+            "address_line_1": "Notting Hill Gate",
+            "postal_code": "W11 3JE",
+            "locality": "London",
+            "country": "United Kingdom"
+          }
+        },
+        {
+          "name": "TAYLOR, Beth, Dr",
+          "officer_role": "director",
+          "appointed_on": "2022-02-09",
+          "address": {
+            "premises": "22",
+            "address_line_1": "Notting Hill Gate",
+            "postal_code": "W11 3JE",
+            "locality": "London",
+            "country": "United Kingdom"
+          }
+        }
+      ]
+    }
+  ]
+}

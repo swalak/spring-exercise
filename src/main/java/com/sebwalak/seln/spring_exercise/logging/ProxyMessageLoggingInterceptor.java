@@ -17,7 +17,7 @@ import static java.nio.charset.StandardCharsets.UTF_8;
  * This interceptor is meant to be used for logging of messages handled by the proxy client (using RestTemplate)
  */
 @Log4j2
-public class LoggingInterceptor implements ClientHttpRequestInterceptor {
+public class ProxyMessageLoggingInterceptor implements ClientHttpRequestInterceptor {
 
     private final ObjectMapper compactingObjectMapper = new ObjectMapper();
 

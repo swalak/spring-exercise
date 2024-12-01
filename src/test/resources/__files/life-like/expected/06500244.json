@@ -8,8 +8,8 @@
       "company_status": "active",
       "date_of_creation": "2008-02-11",
       "address": {
-        "premises": "Boswell Cottage Main Street",
-        "address_line_1": "North Leverton",
+        "premises": null,
+        "address_line_1": "Boswell Cottage Main Street",
         "postal_code": "DN22 0AD",
         "locality": "Retford",
         "country": "England"

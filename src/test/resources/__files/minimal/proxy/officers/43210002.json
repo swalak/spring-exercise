@@ -1,0 +1,29 @@
+{
+  "items": [
+    {
+      "name": "BIGOS, Henryk",
+      "appointed_on": "2006-11-05",
+      "address": {
+        "premises": "3",
+        "postal_code": "PO10 9ST",
+        "country": "England",
+        "locality": "Leeds",
+        "address_line_1": "Congested Road"
+      },
+      "resigned_on": "2016-01-12",
+      "officer_role": "secretary"
+    },
+    {
+      "name": "IDORM, Den",
+      "appointed_on": "2006-11-05",
+      "address": {
+        "premises": "4",
+        "postal_code": "CO17 6DE",
+        "country": "Northern Ireland",
+        "locality": "Belfast",
+        "address_line_1": "Giant's Causeway"
+      },
+      "officer_role": "director"
+    }
+  ]
+}

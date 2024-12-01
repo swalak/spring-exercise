@@ -3,7 +3,9 @@ package com.sebwalak.seln.spring_exercise.config;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
-import com.sebwalak.seln.spring_exercise.logging.LoggingInterceptor;
+import com.sebwalak.seln.spring_exercise.dump.ProxyResponseDumpingInterceptor;
+import com.sebwalak.seln.spring_exercise.logging.ProxyMessageLoggingInterceptor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,6 +14,9 @@ import org.springframework.web.client.RestTemplate;
 
 @Configuration
 public class RestTemplateConfig {
+
+    @Value("${spring.application.proxy.dump-requests-to-file}")
+    private boolean dumpProxyRequestsToFile;
 
     @Bean
     public RestTemplate restTemplate(RestTemplateBuilder builder) {
@@ -25,9 +30,14 @@ public class RestTemplateConfig {
         RestTemplateBuilder restTemplateBuilder = builder
                 .messageConverters(messageConverter);
 
-        // avoid chaining an extra and very slow logging component if the logging is not requested
-        if (LoggingInterceptor.shouldBeEnabled()) {
-            restTemplateBuilder = restTemplateBuilder.additionalInterceptors(new LoggingInterceptor());
+        // avoid chaining slow logging component if the logging is not requested
+        if (ProxyMessageLoggingInterceptor.shouldBeEnabled()) {
+            restTemplateBuilder = restTemplateBuilder.additionalInterceptors(new ProxyMessageLoggingInterceptor());
+        }
+
+        // avoid chaining slow disk writing component if the message dumping is not requested
+        if (dumpProxyRequestsToFile) {
+            restTemplateBuilder = restTemplateBuilder.additionalInterceptors(new ProxyResponseDumpingInterceptor());
         }
 
         return restTemplateBuilder.build();

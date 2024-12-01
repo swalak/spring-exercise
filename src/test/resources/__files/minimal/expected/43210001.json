@@ -1,0 +1,45 @@
+{
+  "total_results": 1,
+  "items": [
+    {
+      "company_status": "active",
+      "company_number": "43210001",
+      "date_of_creation": "2005-04-29",
+      "title": "ABC",
+      "company_type": "ltd",
+      "address": {
+        "premises": "1",
+        "postal_code": "PO12 34ST",
+        "country": "England",
+        "locality": "London",
+        "address_line_1": "Some street"
+      },
+      "officers": [
+        {
+          "name": "SMITH, Joe",
+          "appointed_on": "2004-11-05",
+          "address": {
+            "premises": "1",
+            "postal_code": "PO1 2ST",
+            "country": "England",
+            "locality": "Wakefield",
+            "address_line_1": "Generic Road"
+          },
+          "officer_role": "secretary"
+        },
+        {
+          "name": "BROWN, Max",
+          "appointed_on": "2004-11-05",
+          "address": {
+            "premises": "2",
+            "postal_code": "CO6 2DE",
+            "country": "Bangor",
+            "locality": "Wakefield",
+            "address_line_1": "Slow Moving Traffic Road"
+          },
+          "officer_role": "director"
+        }
+      ]
+    }
+  ]
+}
