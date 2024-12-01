@@ -3,7 +3,6 @@ package com.sebwalak.seln.spring_exercise.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sebwalak.seln.spring_exercise.RequestExamples;
 import com.sebwalak.seln.spring_exercise.ResponseExamples;
-import com.sebwalak.seln.spring_exercise.exception.MissingApiKeyHeaderException;
 import com.sebwalak.seln.spring_exercise.model.request.SearchRequest;
 import com.sebwalak.seln.spring_exercise.model.response.SearchResponse;
 import com.sebwalak.seln.spring_exercise.service.SearchService;
@@ -23,6 +22,8 @@ import java.net.URI;
 import static com.sebwalak.seln.spring_exercise.controller.SearchController.HEADER_API_KEY;
 import static com.sebwalak.seln.spring_exercise.controller.SearchController.HEADER_ONLY_ACTIVE;
 import static java.lang.String.format;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.matchesPattern;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -138,10 +139,9 @@ class ControllerTests {
 
         assert actualResolvedException != null;
 
-        assertEquals("Exception message",
-                MissingApiKeyHeaderException.MESSAGE,
-                actualResolvedException.getMessage()
-        );
+        assertThat("Exception message must match",
+                actualResolvedException.getMessage(),
+                matchesPattern(format("Required request header '%s' .* is not present", HEADER_API_KEY)));
     }
 
     @Test

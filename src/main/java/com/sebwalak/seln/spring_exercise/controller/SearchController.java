@@ -1,6 +1,5 @@
 package com.sebwalak.seln.spring_exercise.controller;
 
-import com.sebwalak.seln.spring_exercise.exception.MissingApiKeyHeaderException;
 import com.sebwalak.seln.spring_exercise.model.request.SearchRequest;
 import com.sebwalak.seln.spring_exercise.model.response.SearchResponse;
 import com.sebwalak.seln.spring_exercise.service.SearchService;
@@ -31,11 +30,7 @@ public class SearchController {
     public @ResponseBody SearchResponse search(
             @RequestBody SearchRequest searchRequest,
             @RequestParam(value = HEADER_ONLY_ACTIVE, defaultValue = "false") boolean onlyActive,
-            @RequestHeader(value = HEADER_API_KEY, required = false) String apiKey) {
-
-        if (apiKey == null || apiKey.isBlank()) {
-            throw new MissingApiKeyHeaderException();
-        }
+            @RequestHeader(value = HEADER_API_KEY) String apiKey) {
 
         searchRequest.validate();
 
