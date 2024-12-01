@@ -38,4 +38,4 @@ curl -s -X POST -d '{"companyName":"BBC LIMITED"}' -H "Content-Type: application
 ```
 
 # Tasks to consider and potentially do
-6. bonus
+1. bonus
