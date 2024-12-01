@@ -29,13 +29,12 @@ curl -s -X POST -d '{"companyName":"BBC LIMITED"}' -H "Content-Type: application
 ```
 
 # Tasks to consider and potentially do
-2. some assertions are a bit too weak (e.g. checking number of officers instead of name) 
-3. needs better error handling (users shouldn't need to know about proxy going through crisis) 
-4. request retry strategies
-5. I would add swagger to the new endpoint 
-6. no observability metrics implemented
-7. healthcheck endpoint not checked/enabled 
-8. bonus
+1. needs better error handling (users shouldn't need to know about proxy going through crisis) 
+2. request retry strategies
+3. I would add swagger to the new endpoint 
+4. no observability metrics implemented
+5. healthcheck endpoint not checked/enabled 
+6. bonus
 
 ---
 The bottom line is that I run out of time and I would not release the code in this shape yet. 

@@ -35,6 +35,7 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 @Tag("controller")
 @Tag("service")
 @Tag("integration")
+@Tag("life-like-data")
 public class IntegrationTest {
 
     @LocalServerPort

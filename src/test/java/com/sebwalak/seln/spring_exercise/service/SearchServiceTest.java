@@ -37,10 +37,11 @@ import static java.lang.String.format;
 import static java.util.Collections.emptyList;
 import static java.util.List.of;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
@@ -157,75 +158,26 @@ class SearchServiceTest {
 
     @Test
     void shouldPassTheApiKeyDownToBothProxyAccessMethods() {
+
+        // given
+        final String TEST_SPECIFIC_VALID_API_KEY = "test-specific-valid-api-key";
+        final String COMPANY_NUMBER = "single-use-company-number";
         searchService = new SearchService(mockedFetchCompaniesFromProxy, mockedFetchOfficersFromProxy);
+        CompanyFromProxy companyFromProxy = new CompanyFromProxy(COMPANY_NUMBER, ANY, ANY, ANY, ANY, ADDRESS);
+        when(mockedFetchCompaniesFromProxy.by(eq(COMPANY_NUMBER), eq(TEST_SPECIFIC_VALID_API_KEY)))
+                .thenReturn(new CompaniesFromProxy(1, of(companyFromProxy)));
 
-        CompanyFromProxy companyFromProxy = new CompanyFromProxy(
-                DUMMY_COMPANY_NUMBER,
-                null,
-                null,
-                null,
-                null,
-                new Address(null, null, null, null, null));
-
-
-        when(mockedFetchCompaniesFromProxy.by(eq(DUMMY_COMPANY_NUMBER), eq(VALID_API_KEY)))
-                .thenReturn(new CompaniesFromProxy(0, of(companyFromProxy)));
-
+        // when
         searchService.search(
                 null,
-                DUMMY_COMPANY_NUMBER,
+                COMPANY_NUMBER,
                 ACTIVE_AND_INACTIVE_COMPANIES,
-                VALID_API_KEY
+                TEST_SPECIFIC_VALID_API_KEY
         );
 
-        Mockito.verify(mockedFetchCompaniesFromProxy).by(eq(DUMMY_COMPANY_NUMBER), eq(VALID_API_KEY));
-        Mockito.verify(mockedFetchOfficersFromProxy).by(eq(DUMMY_COMPANY_NUMBER), eq(VALID_API_KEY));
-    }
-
-    @Test
-    void shouldExcludeCompaniesWithoutActiveStatus() {
-        SearchResponse actualSearchResponse = searchService.search(
-                MOCKED_COMPANY_NAME,
-                null,
-                ONLY_ACTIVE_COMPANIES,
-                VALID_API_KEY);
-
-        int noOfReturnedCompanies = actualSearchResponse.items().size();
-
-        int noOfReturnedCompaniesWithActiveStatus = (int) actualSearchResponse.items().stream()
-                .filter(Company::isActive)
-                .count();
-
-
-        int noOfReturnedCompaniesWithoutActiveStatus = (int) actualSearchResponse.items().stream()
-                .filter(Company::isInactive)
-                .count();
-
-        assertThat(noOfReturnedCompaniesWithoutActiveStatus, is(0));
-        assertThat(noOfReturnedCompaniesWithActiveStatus, is(noOfReturnedCompanies));
-    }
-
-    @Test
-    void shouldIncludeCompaniesWithoutActiveStatus() {
-        SearchResponse actualSearchResponse = searchService.search(
-                MOCKED_COMPANY_NAME,
-                null,
-                ACTIVE_AND_INACTIVE_COMPANIES,
-                VALID_API_KEY);
-
-        int noOfReturnedCompanies = actualSearchResponse.items().size();
-
-        int noOfReturnedCompaniesWithActiveStatus = (int) actualSearchResponse.items().stream()
-                .filter(Company::isActive)
-                .count();
-
-
-        int noOfReturnedCompaniesWithoutActiveStatus = (int) actualSearchResponse.items().stream()
-                .filter(Company::isInactive)
-                .count();
-
-        assertThat(noOfReturnedCompaniesWithoutActiveStatus, greaterThan(0));
-        assertThat(noOfReturnedCompaniesWithoutActiveStatus, is(noOfReturnedCompanies - noOfReturnedCompaniesWithActiveStatus));
+        // then
+        Mockito.verify(mockedFetchCompaniesFromProxy).by(eq(COMPANY_NUMBER), eq(TEST_SPECIFIC_VALID_API_KEY));
+        Mockito.verify(mockedFetchOfficersFromProxy).by(eq(COMPANY_NUMBER), eq(TEST_SPECIFIC_VALID_API_KEY));
     }
 
     @Test
@@ -250,6 +202,37 @@ class SearchServiceTest {
     }
 
     @Test
+    @Tag("life-like-data")
+    void shouldAllowToExcludeCompaniesWithoutActiveStatus() {
+        SearchResponse actualSearchResponseWithOnlyActiveCompanies = searchService.search(
+                "AB",
+                null,
+                ONLY_ACTIVE_COMPANIES,
+                VALID_API_KEY);
+
+        SearchResponse actualSearchResponseWithAllCompanies = searchService.search(
+                "AB",
+                null,
+                ACTIVE_AND_INACTIVE_COMPANIES,
+                VALID_API_KEY);
+
+        assertTrue(actualSearchResponseWithOnlyActiveCompanies.items().stream().allMatch(Company::isActive),
+                "The list of only active companies should not contain a non active company");
+
+        assertTrue(actualSearchResponseWithAllCompanies.items().stream().anyMatch(Company::isInactive),
+                "The list should contain at least one inactive company");
+
+        assertThat("The list of all companies is equal or a superset containing all active companies",
+                actualSearchResponseWithAllCompanies.items(),
+                hasItems(actualSearchResponseWithOnlyActiveCompanies.items().toArray(new Company[0])));
+
+        assertThat("The list of all companies is longer than the list of only active ones",
+                actualSearchResponseWithAllCompanies.items(),
+                hasSize(greaterThanOrEqualTo(actualSearchResponseWithOnlyActiveCompanies.items().size())));
+    }
+
+    @Test
+    @Tag("life-like-data")
     void shouldMergeOneCompanyWithItsOfficers() throws IOException {
 
         SearchResponse actualSearchResponse = searchService.search(
@@ -265,6 +248,7 @@ class SearchServiceTest {
     }
 
     @Test
+    @Tag("life-like-data")
     void shouldMergeMultipleCompaniesWithTheirOfficers() throws IOException {
 
         SearchResponse actualSearchResponse = searchService.search(
@@ -296,6 +280,7 @@ class SearchServiceTest {
     ///
     /// This company has no officers and that causes the service to failover.
     @Test
+    @Tag("life-like-data")
     void shouldCopeWithOfficersResponseWithNoOfficers() {
         SearchResponse actualSearchResponse = searchService.search(
                 null,
