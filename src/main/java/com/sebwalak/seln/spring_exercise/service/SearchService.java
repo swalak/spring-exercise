@@ -9,6 +9,7 @@ import com.sebwalak.seln.spring_exercise.model.response.Officer;
 import com.sebwalak.seln.spring_exercise.model.response.SearchResponse;
 import com.sebwalak.seln.spring_exercise.proxy.FetchCompaniesFromProxy;
 import com.sebwalak.seln.spring_exercise.proxy.FetchOfficersFromProxy;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -17,17 +18,11 @@ import java.util.List;
 import static java.util.Collections.emptyList;
 
 @Service
+@RequiredArgsConstructor
 public class SearchService {
 
     private final FetchCompaniesFromProxy fetchCompaniesFromProxy;
     private final FetchOfficersFromProxy fetchOfficersFromProxy;
-
-    public SearchService(
-            FetchCompaniesFromProxy fetchCompaniesFromProxy,
-            FetchOfficersFromProxy fetchOfficersFromProxy) {
-        this.fetchCompaniesFromProxy = fetchCompaniesFromProxy;
-        this.fetchOfficersFromProxy = fetchOfficersFromProxy;
-    }
 
     public SearchResponse search(
             String companyName,
