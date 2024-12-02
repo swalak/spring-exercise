@@ -20,7 +20,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.net.URI;
 
 import static com.sebwalak.seln.spring_exercise.controller.SearchController.HEADER_API_KEY;
-import static com.sebwalak.seln.spring_exercise.controller.SearchController.HEADER_ONLY_ACTIVE;
+import static com.sebwalak.seln.spring_exercise.controller.SearchController.QUERY_ONLY_ACTIVE;
 import static java.lang.String.format;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.matchesPattern;
@@ -123,7 +123,7 @@ class ControllerTests {
         mockMvc.perform(post(controllerEndpointUri)
                 .contentType(APPLICATION_JSON)
                 .header(HEADER_API_KEY, expectedApiKey)
-                .queryParam(HEADER_ONLY_ACTIVE, "true")
+                .queryParam(QUERY_ONLY_ACTIVE, "true")
                 .content(RequestExamples.validRequestJson));
 
         verify(mockedSearchService).search(anyString(), anyString(), eq(true), anyString());
